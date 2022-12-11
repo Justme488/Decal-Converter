@@ -93,6 +93,7 @@ elif [[ "$?" == "1" ]]; then
   exit
 fi
 }
+
 ###############################################
 # Create function for multiple png conversion #
 ###############################################
@@ -184,12 +185,12 @@ mkdir -p "${colorized_dir}/${input_file_stripped}"
 (echo "4" ; sleep 0.5
 echo "# Creating ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"; sleep 0.5
 convert "$input_file" -fill "#ffffff" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"
-#
+
 # Resizing
 echo "8" ; sleep 0.5
 echo "# Resizing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png to 800x800"; sleep 0.5
 convert "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png" -resize 800x800\! "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"
-#
+
 # Adding watermark
 echo "12" ; sleep 0.5
 echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"; sleep 0.5
@@ -305,7 +306,6 @@ echo "96" ; sleep 0.5
 echo "# Compressing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"; sleep 0.5
 pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"
 
-
 echo "100" ; sleep 0.5
 echo "# Finished Creating Decal Images"; sleep 0.5
 ) | zenity --progress --title="Creating Decal Images" --percentage=0 --auto-close --auto-kill --width=800 --height=100
@@ -319,8 +319,6 @@ fi
   fi
 }
 
-
-#########WIP################
 # Create function for generating color decals, resizong to 800 x 800, compressing png, and watermark
 colorize_multiple () {
 
@@ -347,7 +345,6 @@ if [[ "$transparency_check" == "True" ]] && [[ ! -d "${colorized_dir}/${input_fi
 
 # Copy original image to original folder
 cp "$i" "$original_dir"
-
 mkdir -p "${colorized_dir}/${input_file_stripped}"
 
 # Create, resize, watermark, and compress white image 
@@ -355,12 +352,12 @@ mkdir -p "${colorized_dir}/${input_file_stripped}"
 (echo "4" ; sleep 0.5
 echo "# Creating ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"; sleep 0.5
 convert "$i" -fill "#ffffff" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"
-#
+
 # Resizing
 echo "8" ; sleep 0.5
 echo "# Resizing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png to 800x800"; sleep 0.5
 convert "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png" -resize 800x800\! "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"
-#
+
 # Adding watermark
 echo "12" ; sleep 0.5
 echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"; sleep 0.5
@@ -476,7 +473,6 @@ echo "96" ; sleep 0.5
 echo "# Compressing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"; sleep 0.5
 pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"
 
-
 echo "100" ; sleep 0.5
 echo "# Finished Creating Decal Images"; sleep 0.5
 
@@ -490,7 +486,6 @@ elif [[ "$?" == "1" ]]; then
   exit
 fi
 }
-
 
 #######################
 ##### MAIN SCRIPT #####
@@ -546,4 +541,3 @@ elif [[ "$action1" == "$opt1" ]] && [[ "$action2" == "$opt4" ]]; then
 elif [[ "$action1" == "$opt2" ]] && [[ "$action2" == "$opt4" ]]; then
   colorize_multiple
 fi
-
