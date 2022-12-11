@@ -4,7 +4,7 @@
 
 **Features:**<br />
 + Single or batch convert image to png<br />
-+ Single or batch colorize decals images to White, Black, Blue, Teal, Red, and green<br />
++ Single or batch colorize, resize, compress, and watermark decals images to White, Black, Blue, Teal, Red, and green<br />
 + Saves colorized, and original files to folder in home directory<br />
 + Creates shortcut in Menu > Graphics > Decal Converter<br />
 
