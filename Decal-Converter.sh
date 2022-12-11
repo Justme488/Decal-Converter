@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ################################################################################################
-# Decal converter by Ed Houseman jr - Created 10/27/22                                     #
+# Decal converter by Ed Houseman jr - Created 10/27/22                                         #
 ################################################################################################
 # This script relies on Imagemagick, Pngquant and Zenity installed on a Unix system            #
 ################################################################################################
@@ -14,6 +14,7 @@
 # *Blue - #1791d8    #
 # *Teal - #29bbc8    #
 # *Red - #a01922     #
+# *Green - #008c35   #
 ######################
 
 ############################
@@ -180,108 +181,130 @@ mkdir -p "${colorized_dir}/${input_file_stripped}"
 
 # Create, resize, watermark, and compress white image 
 # Creating
-(echo "5" ; sleep 0.5
+(echo "4" ; sleep 0.5
 echo "# Creating ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"; sleep 0.5
 convert "$input_file" -fill "#ffffff" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"
 #
 # Resizing
-echo "10" ; sleep 0.5
+echo "8" ; sleep 0.5
 echo "# Resizing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png to 800x800"; sleep 0.5
 convert "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png" -resize 800x800\! "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"
 #
 # Adding watermark
-echo "15" ; sleep 0.5
+echo "12" ; sleep 0.5
 echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"; sleep 0.5
 composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"
 
 # Compressing
-echo "20" ; sleep 0.5
+echo "16" ; sleep 0.5
 echo "# Compressing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"; sleep 0.5
 pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"
 
 # Create, resize, and compress black image
 # Creating
-echo "25" ; sleep 0.5
+echo "20" ; sleep 0.5
 echo "# Creating ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"; sleep 0.5
 convert "$input_file" -fill "#000000" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"
 
 # Resizing
-echo "30" ; sleep 0.5
+echo "24" ; sleep 0.5
 echo "# Resizing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png to 800x800"; sleep 0.5
 convert "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png" -resize 800x800\! "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"
 
 # Add watermark
-echo "35" ; sleep 0.5
+echo "28" ; sleep 0.5
 echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"; sleep 0.5
 composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"
 
 # Compressing
-echo "40" ; sleep 0.5
+echo "32" ; sleep 0.5
 echo "# Compressing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"; sleep 0.5
 pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"
 
 # Create, resize, and compress Blue image
 # Creating
-echo "45" ; sleep 0.5
+echo "36" ; sleep 0.5
 echo "# Creating ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"; sleep 0.5
 convert "$input_file" -fill "#1791d8" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"
 
 # Resizing
-echo "50" ; sleep 0.5
+echo "40" ; sleep 0.5
 echo "# Resizing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png to 800x800"; sleep 0.5
 convert "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png" -resize 800x800\! "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"
 
 # Add watermark
-echo "55" ; sleep 0.5
+echo "44" ; sleep 0.5
 echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"; sleep 0.5
 composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"
 
 # Compressing
-echo "60" ; sleep 0.5
+echo "48" ; sleep 0.5
 echo "# Compressing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"; sleep 0.5
 pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"
 
 # Create, resize, and compress Teal image
 # Creating
-echo "65" ; sleep 0.5
+echo "52" ; sleep 0.5
 echo "# Creating ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"; sleep 0.5
 convert "$input_file" -fill "#29bbc8" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"
 
 # Resizing
-echo "70" ; sleep 0.5
+echo "56" ; sleep 0.5
 echo "# Resizing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png to 800x800"; sleep 0.5
 convert "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png" -resize 800x800\! "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"
 
 # Add watermark
-echo "75" ; sleep 0.5
+echo "60" ; sleep 0.5
 echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"; sleep 0.5
 composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"
 
 # Compressing
-echo "80" ; sleep 0.5
+echo "64" ; sleep 0.5
 echo "# Compressing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"; sleep 0.5
 pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"
 
 # Create, resize, and compress Red image
 # Creating
-echo "85" ; sleep 0.5
+echo "68" ; sleep 0.5
 echo "# Creating ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"; sleep 0.5
 convert "$input_file" -fill "#a01922" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"
 
 # Resizing
-echo "90" ; sleep 0.5
+echo "72" ; sleep 0.5
 echo "# Resizing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png to 800x800"; sleep 0.5
 convert "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png" -resize 800x800\! "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"
 
 # Add watermark
-echo "95" ; sleep 0.5
+echo "76" ; sleep 0.5
 echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"; sleep 0.5
 composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"
 
 # Compressing
-echo "99" ; sleep 0.5
+echo "80" ; sleep 0.5
 echo "# Compressing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"; sleep 0.5
 pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"
+
+# Create, resize, and compress Green image
+# Creating
+echo "84" ; sleep 0.5
+echo "# Creating ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"; sleep 0.5
+convert "$input_file" -fill "#008c35" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"
+
+# Resizing
+echo "88" ; sleep 0.5
+echo "# Resizing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png to 800x800"; sleep 0.5
+convert "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png" -resize 800x800\! "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"
+
+# Add watermark
+echo "92" ; sleep 0.5
+echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"; sleep 0.5
+composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"
+
+# Compressing
+echo "96" ; sleep 0.5
+echo "# Compressing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"; sleep 0.5
+pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"
+
 
 echo "100" ; sleep 0.5
 echo "# Finished Creating Decal Images"; sleep 0.5
@@ -329,108 +352,130 @@ mkdir -p "${colorized_dir}/${input_file_stripped}"
 
 # Create, resize, watermark, and compress white image 
 # Creating
-(echo "5" ; sleep 0.5
+(echo "4" ; sleep 0.5
 echo "# Creating ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"; sleep 0.5
 convert "$i" -fill "#ffffff" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"
 #
 # Resizing
-echo "10" ; sleep 0.5
+echo "8" ; sleep 0.5
 echo "# Resizing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png to 800x800"; sleep 0.5
 convert "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png" -resize 800x800\! "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"
 #
 # Adding watermark
-echo "15" ; sleep 0.5
+echo "12" ; sleep 0.5
 echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"; sleep 0.5
 composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"
 
 # Compressing
-echo "20" ; sleep 0.5
+echo "16" ; sleep 0.5
 echo "# Compressing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"; sleep 0.5
 pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"
 
 # Create, resize, and compress black image
 # Creating
-echo "25" ; sleep 0.5
+echo "20" ; sleep 0.5
 echo "# Creating ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"; sleep 0.5
 convert "$i" -fill "#000000" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"
 
 # Resizing
-echo "30" ; sleep 0.5
+echo "24" ; sleep 0.5
 echo "# Resizing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png to 800x800"; sleep 0.5
 convert "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png" -resize 800x800\! "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"
 
 # Add watermark
-echo "35" ; sleep 0.5
+echo "28" ; sleep 0.5
 echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"; sleep 0.5
 composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"
 
 # Compressing
-echo "40" ; sleep 0.5
+echo "32" ; sleep 0.5
 echo "# Compressing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"; sleep 0.5
 pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"
 
 # Create, resize, and compress Blue image
 # Creating
-echo "45" ; sleep 0.5
+echo "36" ; sleep 0.5
 echo "# Creating ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"; sleep 0.5
 convert "$i" -fill "#1791d8" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"
 
 # Resizing
-echo "50" ; sleep 0.5
+echo "40" ; sleep 0.5
 echo "# Resizing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png to 800x800"; sleep 0.5
 convert "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png" -resize 800x800\! "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"
 
 # Add watermark
-echo "55" ; sleep 0.5
+echo "44" ; sleep 0.5
 echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"; sleep 0.5
 composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"
 
 # Compressing
-echo "60" ; sleep 0.5
+echo "48" ; sleep 0.5
 echo "# Compressing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"; sleep 0.5
 pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"
 
 # Create, resize, and compress Teal image
 # Creating
-echo "65" ; sleep 0.5
+echo "52" ; sleep 0.5
 echo "# Creating ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"; sleep 0.5
 convert "$i" -fill "#29bbc8" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"
 
 # Resizing
-echo "70" ; sleep 0.5
+echo "56" ; sleep 0.5
 echo "# Resizing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png to 800x800"; sleep 0.5
 convert "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png" -resize 800x800\! "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"
 
 # Add watermark
-echo "75" ; sleep 0.5
+echo "60" ; sleep 0.5
 echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"; sleep 0.5
 composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"
 
 # Compressing
-echo "80" ; sleep 0.5
+echo "64" ; sleep 0.5
 echo "# Compressing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"; sleep 0.5
 pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"
 
 # Create, resize, and compress Red image
 # Creating
-echo "85" ; sleep 0.5
+echo "68" ; sleep 0.5
 echo "# Creating ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"; sleep 0.5
 convert "$i" -fill "#a01922" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"
 
 # Resizing
-echo "90" ; sleep 0.5
+echo "72" ; sleep 0.5
 echo "# Resizing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png to 800x800"; sleep 0.5
 convert "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png" -resize 800x800\! "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"
 
 # Add watermark
-echo "95" ; sleep 0.5
+echo "76" ; sleep 0.5
 echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"; sleep 0.5
 composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"
 
 # Compressing
-echo "99" ; sleep 0.5
+echo "80" ; sleep 0.5
 echo "# Compressing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"; sleep 0.5
 pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"
+
+# Create, resize, and compress Green image
+# Creating
+echo "84" ; sleep 0.5
+echo "# Creating ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"; sleep 0.5
+convert "$i" -fill "#008c35" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"
+
+# Resizing
+echo "88" ; sleep 0.5
+echo "# Resizing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png to 800x800"; sleep 0.5
+convert "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png" -resize 800x800\! "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"
+
+# Add watermark
+echo "92" ; sleep 0.5
+echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"; sleep 0.5
+composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"
+
+# Compressing
+echo "96" ; sleep 0.5
+echo "# Compressing ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"; sleep 0.5
+pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"
+
 
 echo "100" ; sleep 0.5
 echo "# Finished Creating Decal Images"; sleep 0.5
