@@ -1,5 +1,5 @@
 ## Decal-Converter<br />
-### A utility to convert decal images to png, fill all visible color with black, colorize, watermark, and compress.<br />
+### A utility to convert decal images to png, fill all visible color with black, colorize, watermark, and compress for Phoenix Treasures 5.<br />
 ### This uses Zenity, Imagemagick, and Pngquant (Only tested on linux mint 20.3 cinnamon)<br /><br />
 
 **Features:**<br />
