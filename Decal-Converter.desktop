@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Encoding=UTF-8
-Name=Decal Converter
-Comment=Convert decals and colorize
-Exec=/usr/share/Decal-Converter/Decal-Converter.sh
-Icon=/usr/share/Decal-Converter/Decal-Converter.png
-Terminal=False
-Categories=Graphics;
