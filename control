@@ -5,8 +5,7 @@ Installed-Size: 1400
 Maintainer: justme488 <justme488@gmail.com>
 Priority: optional
 Depends: imagemagick,pngquant,zenity
-Description: 
- Decal-Converter
+Description: Decal-Converter
  A utility to convert decal images to png, fill with black, colorize, watermark, and compress for Phoenix Treasures 5
  Features include:
  * Single or batch convert image to png
