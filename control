@@ -1,7 +1,7 @@
 Package: decal-converter
 Version: 1.0
 Architecture: amd64
-Installed-Size: ?
+Installed-Size: 1400
 Maintainer: justme488 <justme488@gmail.com>
 Priority: optional
 Depends: imagemagick,pngquant,zenity
