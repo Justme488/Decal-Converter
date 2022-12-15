@@ -23,4 +23,5 @@
 + Decals/Original<br />
 + Decals/PNG<br /><br />
 ![1](https://user-images.githubusercontent.com/5625616/207983903-8951531f-4774-4a6d-8135-ee028e7c2319.png)<br /><br />
-![2](https://user-images.githubusercontent.com/5625616/207983905-c651504f-0cbd-4749-a9f3-13b827bc6516.png)
+![2](https://user-images.githubusercontent.com/5625616/207983905-c651504f-0cbd-4749-a9f3-13b827bc6516.png)<br /><br />
+![Screenshot from 2022-12-15 17-54-00](https://user-images.githubusercontent.com/5625616/207984260-ecf159c4-59b6-43b6-a98b-28fb048f7810.png)
