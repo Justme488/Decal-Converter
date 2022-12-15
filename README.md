@@ -3,10 +3,10 @@
 ### This uses Zenity, Imagemagick, and Pngquant (Only tested on linux mint 20.3 cinnamon)<br /><br />
 
 **Features:**<br />
-+ Single or multiple convert image to png<br />
++ Single or multiple convert decal image to png<br />
 + Single or multiple colorize,compress, and watermark decals images to White, Black, Blue, Teal, Red, and green (You must use a transparent png file)<br />
-+ fill all visible color with black (You must use a transparent png file)<br /> 
-+ Saves colorized, and original files to folder in home directory<br />
++ fill all visible color in decal with black (You must use a transparent png file)<br /> 
++ Saves png converted, colorized, filled and original decals to folder in home directory<br />
 + Creates shortcut in Menu > Graphics > Decal Converter<br />
 
 **Colors are:**<br />
