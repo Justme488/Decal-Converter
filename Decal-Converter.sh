@@ -566,7 +566,7 @@ echo "file://${HOME}/Decals Decals" >> "${HOME}/.config/gtk-3.0/bookmarks"
 fi
 
 # ask user if single or multiple files
-action1=$(zenity --list --title="do you have a single file or multiple files?" --text="Please select an option" --column="Select" --column="Task to perform" FALSE "$opt1" FALSE "$opt2" --radiolist --width=350 --height=100)
+action1=$(zenity --list --title="do you have a single file or multiple files?" --text="Please select an option" --column="Select" --column="Task to perform" FALSE "$opt1" FALSE "$opt2" --radiolist --width=350 --height=175)
   if [[ "$?" == "1" ]]; then
     exit
   fi
