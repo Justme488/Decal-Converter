@@ -1,10 +1,11 @@
 ## Decal-Converter<br />
-### A utility to convert decal images to png, resize, colorize, watermark, and compress.<br />
+### A utility to convert decal images to png, fill all visible color with black, colorize, watermark, and compress.<br />
 ### This uses Zenity, Imagemagick, and Pngquant (Only tested on linux mint 20.3 cinnamon)<br /><br />
 
 **Features:**<br />
-+ Single or batch convert image to png<br />
-+ Single or batch colorize, resize, compress, and watermark decals images to White, Black, Blue, Teal, Red, and green<br />
++ Single or multiple convert image to png<br />
++ Single or multiple colorize,compress, and watermark decals images to White, Black, Blue, Teal, Red, and green (You must use a transparent png file)<br />
++ fill all visible color with black (You must use a transparent png file)<br /> 
 + Saves colorized, and original files to folder in home directory<br />
 + Creates shortcut in Menu > Graphics > Decal Converter<br />
 
@@ -15,3 +16,9 @@
 - Teal - #29bbc8<br />
 - Red - #a01922<br />
 - Green - #008c35<br />
+
+**Creates the following directories in `HOME` directory**<br />
++ Decals/Black-Fill<br />
++ Decals/Colorized<br />
++ Decals/Original<br />
++ Decals/PNG<br />
