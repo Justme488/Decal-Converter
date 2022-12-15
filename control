@@ -1,0 +1,15 @@
+Package: decal-converter
+Version: 1.0
+Architecture: amd64
+Installed-Size: ?
+Maintainer: justme488 <justme488@gmail.com>
+Priority: optional
+Depends: imagemagick,pngquant,zenity
+Description: Decal-Converter
+ A utility to convert decal images to png, fill with black, colorize, watermark, and compress for Phoenix Treasures 5
+ Features include:
+ * Single or batch convert image to png
+ * Single or batch colorize, fill with black, compress, and watermark decals images to White, Black, Blue, Teal, Red, and green
+ * Saves colorized, black filled, and original files to folder in home directory
+ * Creates shortcut in Menu > Graphics > Decal Converter
+ * Adds watermark for Phoenix Treasures 5
