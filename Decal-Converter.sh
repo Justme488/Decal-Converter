@@ -196,7 +196,7 @@ transparency_check=$(identify -format %A "$input_file")
       # Adding watermark
       echo "10" ; sleep 0.5
       echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"; sleep 0.5
-      composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"
+      composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"
 
       # Compressing
       echo "15" ; sleep 0.5
@@ -212,7 +212,7 @@ transparency_check=$(identify -format %A "$input_file")
       # Add watermark
       echo "25" ; sleep 0.5
       echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"; sleep 0.5
-      composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"
+      composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"
 
       # Compressing
       echo "30" ; sleep 0.5
@@ -228,7 +228,7 @@ transparency_check=$(identify -format %A "$input_file")
       # Add watermark
       echo "40" ; sleep 0.5
       echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"; sleep 0.5
-      composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"
+      composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"
 
       # Compressing
       echo "45" ; sleep 0.5
@@ -244,7 +244,7 @@ transparency_check=$(identify -format %A "$input_file")
       # Add watermark
       echo "55" ; sleep 0.5
       echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"; sleep 0.5
-      composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"
+      composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"
 
       # Compressing
       echo "60" ; sleep 0.5
@@ -260,7 +260,7 @@ transparency_check=$(identify -format %A "$input_file")
       # Add watermark
       echo "70" ; sleep 0.5
       echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"; sleep 0.5
-      composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"
+      composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"
 
       # Compressing
       echo "75" ; sleep 0.5
@@ -276,7 +276,7 @@ transparency_check=$(identify -format %A "$input_file")
       # Add watermark
       echo "85" ; sleep 0.5
       echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"; sleep 0.5
-      composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"
+      composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"
 
       # Compressing
       echo "90" ; sleep 0.5
@@ -335,7 +335,7 @@ transparency_check=$(identify -format %A "$i")
     # Adding watermark
     echo "12" ; sleep 0.5
     echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"; sleep 0.5
-    composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"
+    composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"
 
     # Compressing
     echo "16" ; sleep 0.5
@@ -351,7 +351,7 @@ transparency_check=$(identify -format %A "$i")
     # Add watermark
     echo "28" ; sleep 0.5
     echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"; sleep 0.5
-    composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"
+    composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"
 
     # Compressing
     echo "32" ; sleep 0.5
@@ -367,7 +367,7 @@ transparency_check=$(identify -format %A "$i")
     # Add watermark
     echo "44" ; sleep 0.5
     echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"; sleep 0.5
-    composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"
+    composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"
 
     # Compressing
     echo "48" ; sleep 0.5
@@ -383,7 +383,7 @@ transparency_check=$(identify -format %A "$i")
     # Add watermark
     echo "60" ; sleep 0.5
     echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"; sleep 0.5
-    composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"
+    composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"
 
     # Compressing
     echo "64" ; sleep 0.5
@@ -399,7 +399,7 @@ transparency_check=$(identify -format %A "$i")
     # Add watermark
     echo "76" ; sleep 0.5
     echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"; sleep 0.5
-    composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"
+    composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"
 
     # Compressing
     echo "80" ; sleep 0.5
@@ -415,7 +415,7 @@ transparency_check=$(identify -format %A "$i")
     # Add watermark
     echo "92" ; sleep 0.5
     echo "# Adding watermark to ${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"; sleep 0.5
-    composite -dissolve 50% -gravity Center "/usr/share/Decal-Color-Changer/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"
+    composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"
 
     # Compressing
     echo "96" ; sleep 0.5
