@@ -5,6 +5,7 @@
 ### I made a script to build the .deb file from github<br />Copy and paste the following code into your terminal:<br />
 
 `wget -O "${HOME}/Desktop/build-decal-converter.sh" "https://raw.githubusercontent.com/Justme488/build-decal-converter/main/build-decal-converter.sh" && chmod u+x "${HOME}/Desktop/build-decal-converter.sh"`<br />
+(Downloads to your desktop)<br />
 
 <br />
 
@@ -24,7 +25,7 @@
 - Red - #a01922<br />
 - Green - #008c35<br />
 - Silver - #928F98<br />
-- Pink - #ffade5<br/>
+- Pink - #ffade5<br />
 
 **Creates the following directories in `HOME` directory**<br />
 + Decals/Black-Fill<br />
