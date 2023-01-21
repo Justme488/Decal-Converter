@@ -5,7 +5,7 @@
 ### I made a script to build the .deb file from github<br />Copy and paste the following code into your terminal:<br />
 
 `wget -O "${HOME}/Desktop/build-decal-converter.sh" "https://raw.githubusercontent.com/Justme488/build-decal-converter/main/build-decal-converter.sh" && chmod u+x "${HOME}/Desktop/build-decal-converter.sh"`<br />
-(Downloads to your desktop)<br />
+<br />(Downloads to your desktop)<br />
 
 <br />
 
@@ -31,5 +31,5 @@
 + Decals/Black-Fill<br />
 + Decals/Colorized<br />
 + Decals/Original<br />
-+ Decals/PNG<br /><br />
++ Decals/PNG<br />
 + Decals/GIF<br /><br />
