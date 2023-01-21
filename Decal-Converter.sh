@@ -154,7 +154,7 @@ echo "0${percentage}" ; sleep 0.2
 decal_basename=$(basename "${decal%.*}")
 
 # Echo text for zenity progress
-echo "# Creating: ${decal_basename}.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n" ; sleep 0.2
+echo "# Creating: ${decal_basename}.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}     \( ${decal_basename} \)\n" ; sleep 0.2
 done
 }
 
