@@ -1,5 +1,5 @@
 ## Decal-Converter<br />
-### A utility to convert decal images to png, gif, fill all visible color with black, colorize, watermark, and compress for Phoenix Treasures 5.<br />
+### A utility to convert decal images to png, gif, fill all visible color with black, colorize, watermark, and compress for Raven's Decals.<br />
 ### This uses Zenity, Imagemagick, and Pngquant (Only tested on linux mint 20.3 cinnamon)<br /><br />
 
 ### I made a script to build the .deb file from github<br />Copy and paste the following code into your terminal:<br />
