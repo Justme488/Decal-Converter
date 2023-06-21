@@ -19,6 +19,7 @@
 # *Green - #008c35   #
 # *Silver - #928F98  #
 # *Pink - #FFADE5    #
+# *Purple = #1a0e67  #
 ######################
 
 ##############################
@@ -179,7 +180,7 @@ folder_name=$(basename "${dir_input}")
 
   # Convert decal to gif (if it doesn't exist)
   if [[ ! -f "${dir_input}.gif" ]]; then
-    convert -delay 100 -loop 0 "${dir_input}/*.png" "${gif_dir}/${folder_name}.gif" 2>/dev/null
+    convert -dispose previous -delay 100 -loop 0 "${dir_input}/*.png" "${gif_dir}/${folder_name}.gif" 2>/dev/null
   fi
 }
 
@@ -223,7 +224,7 @@ decal_basename=$(basename "${decal%.*}")
 
   # Convert decal to gif (if it doesn't exist)
   if [[ ! -f "${decal}.gif" ]]; then
-    convert -delay 100 -loop 0 "${decal}/*.png" "${dir_output}/${decal_basename}.gif" 2>/dev/null
+    convert -dispose previous -delay 100 -loop 0 "${decal}/*.png" "${dir_output}/${decal_basename}.gif" 2>/dev/null
   fi
 # increment percentage number
 percentage=$(echo "${percentage}+${increment}" | bc)
@@ -293,9 +294,9 @@ transparency_check=$(identify -format %A "$input_file")
 percentage="0"
 
 # Set increment value
-increment="3.846153846"
+increment="3.703703704"
 
-# Create, watermark, and compress white image 
+      # Create, watermark, and compress white image 
       # Creating
       percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
       echo "0${percentage}" ; sleep 0.2
@@ -448,6 +449,26 @@ increment="3.846153846"
       echo "# Compressing: ${input_file_stripped}-Pink.png\n" ; sleep 0.2
       pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Pink.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Pink.png"
       
+      # Create, watermark, and compress purple image 
+      # Creating
+      percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+      echo "0${percentage}" ; sleep 0.2
+      echo "# Creating: ${input_file_stripped}-Purple.png\n" ; sleep 0.2
+      convert "$input_file" -fill "#452167" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Purple.png"
+
+      # Adding watermark
+      percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+      echo "0${percentage}" ; sleep 0.2
+      echo "# Watermarking: ${input_file_stripped}-Purple.png\n" ; sleep 0.2
+      composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Purple.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Purple.png"
+
+      # Compressing
+      percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+      echo "0${percentage}" ; sleep 0.2
+      echo "# Compressing: ${input_file_stripped}-Purple.png\n" ; sleep 0.2
+      pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Purple.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Purple.png"
+
+
       echo "100" ; sleep 0.2
       echo "# Finished Creating Decal Images"; sleep 0.2
 } 
@@ -472,14 +493,15 @@ percentage="0"
 # get total number of files in input folder
 total_files=$(ls "$input_dir" 2> /dev/null | wc -l)
 
-# Multiply total_files variable x 24 (24 processes performed)
-tasks=$(echo "${total_files}*24" | bc) 
+# Multiply total_files variable x 27 (27 processes performed)
+tasks=$(echo "${total_files}*27" | bc) 
 
 # Get number to increment progress bar by
-increment=$(echo "scale=2; 100/${tasks}" | bc)
+increment=$(echo "scale=8; 100/${tasks}" | bc)
 
 # Set current decal number in loop
-current_decal_number=0 
+current_decal_number=0
+
 
 # Start looping through folder
 for decal in "${input_dir}"/* ; do
@@ -493,6 +515,12 @@ decal_basename=$(basename "${decal%.*}")
 
 # Set value for current decal in loop
 ((current_decal_number++))
+
+# Get progress percentage for total process
+if [[ "${percentage%.*}" == "0" ]]; then
+  total_percentage="Calculating Progress..."
+else total_percentage="${percentage%.*}% Total Progress"
+fi
 
 # Check if image is transparent
 transparency_check=$(identify -format %A "$decal")
@@ -508,161 +536,172 @@ transparency_check=$(identify -format %A "$decal")
     # Creating
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    echo "# Creating: ${input_file_stripped}-White.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Creating: ${input_file_stripped}-White.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     convert "$decal" -fill "#ffffff" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"
      
     # Adding watermark
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    echo "# Watermarking: ${input_file_stripped}-White.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Watermarking: ${input_file_stripped}-White.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"
 
     # Compressing
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    echo "# Compressing: ${input_file_stripped}-White.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Compressing: ${input_file_stripped}-White.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-White.png"
 
     # Create, watermark, and compress black image
     # Creating
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    echo "# Creating: ${input_file_stripped}-Black.png \n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Creating: ${input_file_stripped}-Black.png \n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     convert "$decal" -fill "#000000" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"
 
     # Add watermark
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    echo "# Watermarking: ${input_file_stripped}-Black.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Watermarking: ${input_file_stripped}-Black.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"
 
     # Compressing
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    echo "# Compressing: ${input_file_stripped}-Black.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Compressing: ${input_file_stripped}-Black.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Black.png"
 
     # Create, watermark, and compress Blue image
     # Creating
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    echo "# Creating: ${input_file_stripped}-Blue.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Creating: ${input_file_stripped}-Blue.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     convert "$decal" -fill "#1791d8" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"
 
     # Add watermark
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    echo "# Watermarking: ${input_file_stripped}-Blue.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Watermarking: ${input_file_stripped}-Blue.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"
 
     # Compressing
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    echo "# Compressing: ${input_file_stripped}-Blue.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Compressing: ${input_file_stripped}-Blue.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Blue.png"
 
     # Create, watermark, and compress Teal image
     # Creating
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    test_percentage=$("($percentage+0.5)/1" | bc)
-    echo "# Creating: ${input_file_stripped}-Teal.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Creating: ${input_file_stripped}-Teal.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     convert "$decal" -fill "#29bbc8" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"
 
     # Add watermark
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    test_percentage=$("($percentage+0.5)/1" | bc)
-    echo "# Watermarking: ${input_file_stripped}-Teal.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Watermarking: ${input_file_stripped}-Teal.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"
 
     # Compressing
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    test_percentage=$("($percentage+0.5)/1" | bc)
-    echo "# Compressing: ${input_file_stripped}-Teal.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Compressing: ${input_file_stripped}-Teal.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Teal.png"
 
     # Create, watermark, and compress Red image
     # Creating
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    test_percentage=$("($percentage+0.5)/1" | bc)
-    echo "# Creating: ${input_file_stripped}-Red.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Creating: ${input_file_stripped}-Red.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     convert "$decal" -fill "#a01922" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"
 
     # Add watermark
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    test_percentage=$("($percentage+0.5)/1" | bc)
-    echo "# Watermarking: ${input_file_stripped}-Red.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Watermarking: ${input_file_stripped}-Red.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"
 
     # Compressing
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    test_percentage=$("($percentage+0.5)/1" | bc)
-    echo "# Compressing: ${input_file_stripped}-Red.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Compressing: ${input_file_stripped}-Red.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Red.png"
 
     # Create, watermark, and compress Green image
     # Creating
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    test_percentage=$("($percentage+0.5)/1" | bc)
-    echo "# Creating: ${input_file_stripped}-Green.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Creating: ${input_file_stripped}-Green.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     convert "$decal" -fill "#008c35" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"
 
     # Add watermark
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    test_percentage=$("($percentage+0.5)/1" | bc)
-    echo "# Watermarking: ${input_file_stripped}-Green.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Watermarking: ${input_file_stripped}-Green.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"
 
     # Compressing
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    echo "# Compressing: ${input_file_stripped}-Green.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Compressing: ${input_file_stripped}-Green.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Green.png"
 
     # Create, watermark, and compress Silver image
     # Creating
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    echo "# Creating: ${input_file_stripped}-Silver.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Creating: ${input_file_stripped}-Silver.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     convert "$decal" -fill "#928F98" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Silver.png"
 
     # Add watermark
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    echo "# Watermarking: ${input_file_stripped}-Silver.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Watermarking: ${input_file_stripped}-Silver.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Silver.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Silver.png"
 
     # Compressing
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    echo "# Compressing: ${input_file_stripped}-Silver.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Compressing: ${input_file_stripped}-Silver.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Silver.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Silver.png"
 
      # Create, watermark, and compress Pink image
     # Creating
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    echo "# Creating: ${input_file_stripped}-Pink.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Creating: ${input_file_stripped}-Pink.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     convert "$decal" -fill "#FFADE5" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Pink.png"
 
     # Add watermark
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    echo "# Watermarking: to ${input_file_stripped}-Pink.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Watermarking: to ${input_file_stripped}-Pink.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Pink.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Pink.png"
 
     # Compressing
     percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
     echo "0${percentage}" ; sleep 0.2
-    echo "# Compressing: ${input_file_stripped}-Pink.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n" ; sleep 0.2
+    echo "# Compressing: ${input_file_stripped}-Pink.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
     pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Pink.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Pink.png"
+
+    # Create, watermark, and compress Purple image
+    # Creating
+    percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+    echo "0${percentage}" ; sleep 0.2
+    echo "# Creating: ${input_file_stripped}-Purple.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
+    convert "$decal" -fill "#452167" -colorize "100" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Purple.png"
+
+    # Add watermark
+    percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+    echo "0${percentage}" ; sleep 0.2
+    echo "# Watermarking: to ${input_file_stripped}-Purple.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
+    composite -dissolve 50% -gravity Center "/usr/share/decal-converter/watermark.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Purple.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Purple.png"
+
+    # Compressing
+    percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+    echo "0${percentage}" ; sleep 0.2
+    echo "# Compressing: ${input_file_stripped}-Purple.png\n\nCurrent Decal: ${current_decal_number} of ${total_files}    ( ${input_file_stripped} )\n\n $total_percentage" ; sleep 0.2
+    pngquant --force --quality=40-100 --strip --skip-if-larger --verbose --output "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Purple.png" "${colorized_dir}/${input_file_stripped}/${input_file_stripped}-Purple.png"
   fi
 done
 }
