@@ -4,7 +4,7 @@
 
 ### I made a script to build the .deb file from github<br />Copy and paste the following code into your terminal:<br />
 
-`wget -O "${HOME}/Desktop/build-decal-converter.sh" "https://raw.githubusercontent.com/Justme488/build-decal-converter/main/build-decal-converter.sh" && chmod u+x "${HOME}/Desktop/build-decal-converter.sh`
+`wget -O "${HOME}/Desktop/build-decal-converter.sh" "https://raw.githubusercontent.com/Justme488/build-decal-converter/main/build-decal-converter.sh" && chmod u+x "${HOME}/Desktop/build-decal-converter.sh"`
 
 <br />
 
