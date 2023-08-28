@@ -829,6 +829,10 @@ done
 # Create function for tablet image creation for slideshow from colorized folder #
 #################################################################################
 create_tablet_images () {
+# see if Tablet folder exists, and create if it doesn't exist
+if [[ ! -d "tablet_dir" ]]; then
+  mkdir -p $tablet_dir
+fi
 
 for decal in "${colorized_dir}"/*/*.png ; do
 decal_basename=$(basename "${decal}")
