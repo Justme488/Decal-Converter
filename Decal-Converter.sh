@@ -44,6 +44,9 @@ black_fill_dir="${HOME}/Decals/Black-Fill"
 # GIF folder
 gif_dir="${HOME}/Decals/GIF"
 
+# Tablet images for slideshow folder
+tablet_dir="${HOME}/Decals/Tablet"
+
 ##########################
 ##### Define options #####
 ##########################
@@ -61,10 +64,13 @@ opt3="Colorize Decals"
 opt4="Fill All Visible Color With Black"
 
 # single conversion
-opt5="Single conversion"
+opt5="Single Conversion"
 
 # Multiple conversion
-opt6="Multiple conversion"
+opt6="Multiple Conversion"
+
+# Create tablet images
+opt7="Create Tablet Images"
 
 #####################
 ##### Functions #####
@@ -819,6 +825,20 @@ echo "# Creating: ${input_file_stripped}.png\n\nCurrent Decal: ${current_decal_n
 done
 }
 
+#################################################################################
+# Create function for tablet image creation for slideshow from colorized folder #
+#################################################################################
+create_tablet_images () {
+
+for decal in "${colorized_dir}"/*/*.png ; do
+decal_basename=$(basename "${decal}")
+  if [[ ! -f "${tablet_dir}/${decal_basename}" ]]; then
+composite "$decal" "/usr/share/decal-converter/bg-tablet.png" -gravity Center -quality 95 "${tablet_dir}/${decal_basename}"
+  fi
+done | zenity --progress --pulsate --width=400 --height=100 --auto-close --title="Creating Images For Tablet Slideshow"
+}
+
+
 #######################
 ##### MAIN SCRIPT #####
 #######################
@@ -839,6 +859,7 @@ mkdir -p $colorized_dir
 mkdir -p $png_converted_dir
 mkdir -p $black_fill_dir
 mkdir -p $gif_dir
+mkdir -p $tablet_dir
 
 # Change bookmark breakpoints from default 10 - 15
 dconf write /org/nemo/window-state/sidebar-bookmark-breakpoint 15
@@ -852,11 +873,20 @@ fi
 ##################
 
 # ask user which task they would like to perform
-action1=$(zenity --list --title="What would you like to do?" --text="Please select an option" --column="Select" --column="Task to perform" FALSE "$opt1" FALSE "$opt2" FALSE "$opt3" FALSE "$opt4" --radiolist --width=350 --height=250)
+action1=$(zenity --list --title="What would you like to do?" --text="Please select an option" --column="Select" --column="Task to perform" FALSE "$opt1" FALSE "$opt2" FALSE "$opt3" FALSE "$opt4" FALSE "$opt7" --radiolist --width=350 --height=250)
   if [[ "$?" == "1" ]]; then
     exit
   fi
-
+ 
+if [[ "$action1" == "$opt7" ]]; then
+ create_tablet_images
+zenity --question --title="Do you have more decals?" --text="Would you like to Exit or Continue?" --ok-label="Continue" --cancel-label="Exit" --width="400" --height="100"
+  if [[ "$?" == "0" ]]; then
+    exec "$0"
+  elif [[ "$?" == "1" ]]; then
+    exit
+  fi 
+fi
 # ask user if single or multiple files
 action2=$(zenity --list --title="do you have a single file or multiple files?" --text="Please select an option" --column="Select" --column="Task to perform" FALSE "$opt5" FALSE "$opt6" --radiolist --width=350 --height=175)
   if [[ "$?" == "1" ]]; then
