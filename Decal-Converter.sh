@@ -1735,7 +1735,7 @@ increment="$(echo "scale=2; 99/${tasks}" | bc)"
 current_decal_number="0"
 
 # Start loop
-for decal in "$input_dir"; do
+for decal in $input_dir/*; do
 
   # Set value for current decal in loop
   ((current_decal_number++))
