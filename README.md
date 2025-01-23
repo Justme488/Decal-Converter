@@ -36,6 +36,6 @@
 + Decals/Black-Fill<br />
 + Decals/Colorized<br />
 + Decals/Original<br />
-+ Decals/GIF<br /><br />
-+ Decals/Tablet<br /><br />
-+ Decals/White-Background<br /><br />
++ Decals/GIF<br />
++ Decals/Tablet<br />
++ Decals/White-Background<br />
