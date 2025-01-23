@@ -4190,6 +4190,7 @@ if [[ ! -d "${decals}" ]]; then
     mkdir "$gif_dir"
     mkdir "$tablet_dir"
     mkdir "$resized_transparent"
+    mkdir "$white_background_dir"
   fi
   # Change bookmark breakpoints from default 10 - 15
   dconf write /org/nemo/window-state/sidebar-bookmark-breakpoint 15
