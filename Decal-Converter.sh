@@ -165,7 +165,7 @@ fi
 input_file_no_path=$(basename "${input_file}")
 
 # Get new percentage (task 1 - backup original decal)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -189,7 +189,7 @@ input_file_no_path_or_ext="$(basename "${input_file%.*}")"
 
 # Convert to jpg,bmp,svg,png to remove background(task 2 - remove background)
 # Get new percentage
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -206,7 +206,7 @@ echo "$percentage_new" ; sleep 0.2
 echo "# Task: Remove background\n\nRemoving background from: ${input_file_no_path}\n\n${percentage_new}%" ; sleep 0.2
 
 # Get new percentage
-echo percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+echo percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -248,7 +248,7 @@ input_file_height="$(identify -format "%h" "${temp_dir}/${input_file_no_path_or_
 
 # Resize larger image dimension to 750px, and then paste onto 800x800 transparent background in temp directory
 # Get new percentage (task 3 - resize)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -282,7 +282,7 @@ input_file_new="${resized_transparent}/${input_file_no_path_or_ext}.png"
 input_file_no_path_or_ext="$(basename "${input_file_new%.*}")"
 
 # Get new percentage (task 4 - black fill)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -309,7 +309,7 @@ input_file_new="${black_fill_dir}/${input_file_no_path_or_ext}.png"
 input_file_no_path_or_ext="$(basename "${input_file_new%.*}")"
 
 # Get new percentage (task 5 - white background)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -340,7 +340,7 @@ mkdir "${colorized_dir}/${input_file_no_path_or_ext}"
 
 # Create and compress white image
 # Get new percentage (task 6 - colorize white)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -360,7 +360,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-White.png\n\n${
 convert "$input_file_new" -fill "#ffffff" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-White.png"
 
 # Get new percentage (task 7 - compress white image)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -381,7 +381,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress black image
 # Get new percentage (task 8 - colorize black)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -401,7 +401,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Black.png\n\n${
 convert "$input_file_new" -fill "#000000" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Black.png"
 
 # Get new percentage (task 9 - compress black)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -422,7 +422,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Blue image
 # Get new percentage (task 10 - colorize blue)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -442,7 +442,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Blue.png\n\n${p
 convert "$input_file_new" -fill "#1791d8" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Blue.png"
 
 # Get new percentage (task 11 - compress blue)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -463,7 +463,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Teal image
 # Get new percentage (task 12 - colorize teal)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -483,7 +483,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Teal.png\n\n${p
 convert "$input_file_new" -fill "#29bbc8" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Teal.png"
 
 # Get new percentage (task 13 - compress teal)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Echo percentage to zenity progress
 echo "$percentage_new" ; sleep 0.2
@@ -499,7 +499,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Red image
 # Get new percentage (task 14 - colorize red)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -519,7 +519,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Red.png\n\n${pe
 convert "$input_file_new" -fill "#a01922" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Red.png"
 
 # Get new percentage (task 15 - compress red)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -540,7 +540,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Green image
 # Get new percentage (task 16 - colorize green)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -560,7 +560,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Green.png\n\n${
 convert "$input_file_new" -fill "#008c35" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Green.png"
 
 # Get new percentage (task 17 - compress green)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -581,7 +581,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Silver image
 # Get new percentage (task 18 - colorize silver)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -601,7 +601,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Silver.png\n\n$
 convert "$input_file_new" -fill "#928F98" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Silver.png"
 
 # Get new percentage (task 19 - compress silver)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -622,7 +622,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Pink image
 # Get new percentage (task 20 - colorize pink)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -642,7 +642,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Pink.png\n\n${p
 convert "$input_file_new" -fill "#FFADE5" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Pink.png"
 
 # Get new percentage (task 21 - compress pink)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -663,7 +663,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress purple image
 # Get new percentage (task 22 - colorize purple)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -683,7 +683,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Purple.png\n\n$
 convert "$input_file_new" -fill "#452167" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Purple.png"
 
 # Get new percentage (task 23 - compress purple)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -704,7 +704,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Dark-Blue image
 # Get new percentage (task 24 - colorize dark blue)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -724,7 +724,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Dark-Blue.png\n
 convert "$input_file_new" -fill "#003478" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Dark-Blue.png"
 
 # Get new percentage (task 25 - compress dark blue)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -745,7 +745,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Orange image
 # Get percentage (task 26 - colorize orange)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -765,7 +765,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Orange.png\n\n$
 convert "$input_file_new" -fill "#d56f31" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Orange.png"
 
 # Get new percentage (task 27 - compress orange)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -786,7 +786,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Yellow image
 # Get new percentage (task 28 - colorize yellow)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -806,7 +806,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Yellow.png\n\n$
 convert "$input_file_new" -fill "#f3e11f" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Yellow.png"
 
 # Get new percentage (task 29 - compress yellow)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -827,7 +827,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Neon-Green image
 # Get new percentage (task 30 - colorize neon green)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -847,7 +847,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Neon-Green.png\
 convert "$input_file_new" -fill "#39FF14" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Neon-Green.png"
 
 # Get new percentage (task 31 - compress neon-green)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -871,7 +871,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 input_dir="${colorized_dir}/${input_file_no_path_or_ext}"
 
 # Get new percentage (task 32 - gif)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -897,7 +897,7 @@ for decal in "${colorized_dir}/${input_file_no_path_or_ext}"/*.png ; do
   decal_basename="$(basename "${decal}")"
 
   # Get new percentage
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -947,7 +947,7 @@ fi
 input_file_no_path=$(basename "${input_file}")
 
 # Get new percentage (task 1 - backup original decal)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -971,7 +971,7 @@ input_file_no_path_or_ext="$(basename "${input_file%.*}")"
 
 # Convert to jpg,bmp,svg,png to remove background(task 2 - remove background)
 # Get new percentage
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -988,7 +988,7 @@ echo "$percentage_new" ; sleep 0.2
 echo "# Task: Remove background\n\nRemoving background from: ${input_file_no_path}\n\n${percentage_new}%" ; sleep 0.2
 
 # Get new percentage
-echo percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+echo percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1030,7 +1030,7 @@ input_file_height="$(identify -format "%h" "${temp_dir}/${input_file_no_path_or_
 
 # Resize larger image dimension to 750px, and then paste onto 800x800 transparent background in temp directory
 # Get new percentage (task 3 - resize)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1064,7 +1064,7 @@ input_file_new="${resized_transparent}/${input_file_no_path_or_ext}-Mirrored.png
 input_file_no_path_or_ext="$(basename "${input_file_new%.*}")"
 
 # Get new percentage (task 4 - black fill)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1091,7 +1091,7 @@ input_file_new="${black_fill_dir}/${input_file_no_path_or_ext}.png"
 input_file_no_path_or_ext="$(basename "${input_file_new%.*}")"
 
 # Get new percentage (task 5 - white background)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1122,7 +1122,7 @@ mkdir "${colorized_dir}/${input_file_no_path_or_ext}"
 
 # Create and compress white image
 # Get new percentage (task 6 - colorize white)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1142,7 +1142,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-White.png\n\n${
 convert "$input_file_new" -fill "#ffffff" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-White.png"
 
 # Get new percentage (task 7 - compress white image)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1163,7 +1163,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress black image
 # Get new percentage (task 8 - colorize black)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1183,7 +1183,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Black.png\n\n${
 convert "$input_file_new" -fill "#000000" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Black.png"
 
 # Get new percentage (task 9 - compress black)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1204,7 +1204,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Blue image
 # Get new percentage (task 10 - colorize blue)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1224,7 +1224,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Blue.png\n\n${p
 convert "$input_file_new" -fill "#1791d8" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Blue.png"
 
 # Get new percentage (task 11 - compress blue)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1245,7 +1245,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Teal image
 # Get new percentage (task 12 - colorize teal)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1265,7 +1265,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Teal.png\n\n${p
 convert "$input_file_new" -fill "#29bbc8" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Teal.png"
 
 # Get new percentage (task 13 - compress teal)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Echo percentage to zenity progress
 echo "$percentage_new" ; sleep 0.2
@@ -1281,7 +1281,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Red image
 # Get new percentage (task 14 - colorize red)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1301,7 +1301,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Red.png\n\n${pe
 convert "$input_file_new" -fill "#a01922" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Red.png"
 
 # Get new percentage (task 15 - compress red)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1322,7 +1322,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Green image
 # Get new percentage (task 16 - colorize green)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1342,7 +1342,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Green.png\n\n${
 convert "$input_file_new" -fill "#008c35" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Green.png"
 
 # Get new percentage (task 17 - compress green)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1363,7 +1363,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Silver image
 # Get new percentage (task 18 - colorize silver)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1383,7 +1383,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Silver.png\n\n$
 convert "$input_file_new" -fill "#928F98" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Silver.png"
 
 # Get new percentage (task 19 - compress silver)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1404,7 +1404,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Pink image
 # Get new percentage (task 20 - colorize pink)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1424,7 +1424,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Pink.png\n\n${p
 convert "$input_file_new" -fill "#FFADE5" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Pink.png"
 
 # Get new percentage (task 21 - compress pink)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1445,7 +1445,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress purple image
 # Get new percentage (task 22 - colorize purple)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1465,7 +1465,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Purple.png\n\n$
 convert "$input_file_new" -fill "#452167" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Purple.png"
 
 # Get new percentage (task 23 - compress purple)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1486,7 +1486,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Dark-Blue image
 # Get new percentage (task 24 - colorize dark blue)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1506,7 +1506,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Dark-Blue.png\n
 convert "$input_file_new" -fill "#003478" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Dark-Blue.png"
 
 # Get new percentage (task 25 - compress dark blue)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1527,7 +1527,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Orange image
 # Get percentage (task 26 - colorize orange)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1547,7 +1547,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Orange.png\n\n$
 convert "$input_file_new" -fill "#d56f31" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Orange.png"
 
 # Get new percentage (task 27 - compress orange)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1568,7 +1568,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Yellow image
 # Get new percentage (task 28 - colorize yellow)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1588,7 +1588,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Yellow.png\n\n$
 convert "$input_file_new" -fill "#f3e11f" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Yellow.png"
 
 # Get new percentage (task 29 - compress yellow)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1609,7 +1609,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Neon-Green image
 # Get new percentage (task 30 - colorize neon green)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1629,7 +1629,7 @@ echo "# Task: Colorize\n\nCreating: ${input_file_no_path_or_ext}-Neon-Green.png\
 convert "$input_file_new" -fill "#39FF14" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Neon-Green.png"
 
 # Get new percentage (task 31 - compress neon-green)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1653,7 +1653,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 input_dir="${colorized_dir}/${input_file_no_path_or_ext}"
 
 # Get new percentage (task 32 - gif)
-percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -1679,7 +1679,7 @@ for decal in "${colorized_dir}/${input_file_no_path_or_ext}"/*.png ; do
   decal_basename="$(basename "${decal}")"
 
   # Get new percentage
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -1729,13 +1729,13 @@ total_files="$(ls "$input_dir" 2> /dev/null | wc -l)"
 tasks="$(echo "${total_files}*45" | bc)"
 
 # Get number to increment progress bar by (45 actions / 99)
-increment="$(echo "scale=2; 99/${tasks}" | bc)"
+increment="$(echo "scale=4; 99/${tasks}" | bc)"
 
 # Set current decal number in loop
 current_decal_number="0"
 
 # Start loop
-for decal in $input_dir/*; do
+for decal in ${input_dir}/*; do
 
   # Set value for current decal in loop
   ((current_decal_number++))
@@ -1744,7 +1744,7 @@ for decal in $input_dir/*; do
   input_file_no_path="$(basename "${decal}")"
 
   # Get new percentage (Create backup - task 1)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -1755,7 +1755,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Creating backup\n\nDecal ${current_decal_number} of ${total_files}\n\nCopying: ${input_file_no_path} to \"Original\" directory\n\n${percentage_new}%" ; sleep 0.2
@@ -1791,7 +1791,7 @@ for decal in $input_dir/*; do
   input_file_width="$(identify -format "%w" "${temp_dir}/${input_file_no_path_or_ext}.png")"
 
   # Get new percentage (Remove backgroud - task 2)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -1802,7 +1802,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Remove Backgroud\n\nDecal ${current_decal_number} of ${total_files}\n\nRemoving background from: ${input_file_no_path_or_ext}\n\n${percentage_new}%" ; sleep 0.2
@@ -1815,7 +1815,7 @@ for decal in $input_dir/*; do
 
   # Resize larger image dimension to 750px, and then paste onto 800x800 transparent background in temp directory
   # Get new percentage (resize - task 3)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -1826,7 +1826,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Resizing decal\n\nDecal ${current_decal_number} of ${total_files}\n\nResizing: ${input_file_no_path_or_ext}\n\n${percentage_new}%" ; sleep 0.2
@@ -1848,7 +1848,7 @@ for decal in $input_dir/*; do
   input_file_no_path_or_ext="$(basename "${input_file_new%.*}")"
 
   # Get new percentage (Black fill - task 4)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -1859,7 +1859,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Fill all visible color with black\n\nDecal ${current_decal_number} of ${total_files}\n\nConverting: ${input_file_no_path_or_ext}.png\n\n${percentage_new}%" ; sleep 0.2
@@ -1875,7 +1875,7 @@ for decal in $input_dir/*; do
   input_file_no_path_or_ext="$(basename "${input_file_new%.*}")"
 
   # Get new percentage (White background - task 5)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -1886,7 +1886,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Put decal on white background\n\nDecal ${current_decal_number} of ${total_files}\n\nConverting: ${input_file_no_path_or_ext}.png\n\n${percentage_new}%" ; sleep 0.2
@@ -1906,7 +1906,7 @@ for decal in $input_dir/*; do
 
   # Create and compress white image
   # Get new percentage (Colorize white - task 6)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -1917,7 +1917,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-White.png\n\n${percentage_new}%" ; sleep 0.2
@@ -1926,7 +1926,7 @@ for decal in $input_dir/*; do
   convert "$input_file_new" -fill "#ffffff" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-White.png"
 
   # Get new percentage (Compress white - task 7)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -1947,7 +1947,7 @@ for decal in $input_dir/*; do
 
   # Create and compress black image
   # Get new percentage (Colorize black - task 8)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -1958,7 +1958,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Black.png\n\n${percentage_new}%" ; sleep 0.2
@@ -1967,7 +1967,7 @@ for decal in $input_dir/*; do
   convert "$input_file_new" -fill "#000000" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Black.png"
 
   # Get new percentage (Compress black - task 9)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -1978,7 +1978,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Black.png\n\n${percentage_new}%" ; sleep 0.2
@@ -1988,7 +1988,7 @@ for decal in $input_dir/*; do
 
   # Create and compress Blue image
   # Get new percentage (Colorize blue - task 10)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -1999,7 +1999,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Blue.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2008,7 +2008,7 @@ for decal in $input_dir/*; do
   convert "$input_file_new" -fill "#1791d8" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Blue.png"
 
   # Get new percentage (Compress blue - task 11)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2019,7 +2019,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Blue.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2029,7 +2029,7 @@ for decal in $input_dir/*; do
 
   # Create and compress Teal image
   # Get new percentage (Colorize teal - task 12)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2040,7 +2040,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Teal.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2049,7 +2049,7 @@ for decal in $input_dir/*; do
   convert "$input_file_new" -fill "#29bbc8" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Teal.png"
 
   # Get new percentage (Compress teal - task 13)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2060,7 +2060,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Teal.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2070,7 +2070,7 @@ for decal in $input_dir/*; do
 
   # Create and compress Red image
   # Get new percentage (Colorize red - task 14)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2081,7 +2081,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Red.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2090,7 +2090,7 @@ for decal in $input_dir/*; do
   convert "$input_file_new" -fill "#a01922" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Red.png"
 
   # Get new percentage (Compress red - task 15)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2101,7 +2101,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Red.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2111,7 +2111,7 @@ for decal in $input_dir/*; do
 
   # Create and compress Green image
   # Get new percenage (Colorize green - task 16)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2122,7 +2122,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Green.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2131,7 +2131,7 @@ for decal in $input_dir/*; do
   convert "$input_file_new" -fill "#008c35" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Green.png"
 
   # Get new percentage (Compress green - task 17)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2142,7 +2142,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Green.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2152,7 +2152,7 @@ for decal in $input_dir/*; do
 
   # Create and compress Silver image
   # Get new percentage (Colorize silver - task 18)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2163,7 +2163,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Silver.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2172,7 +2172,7 @@ for decal in $input_dir/*; do
   convert "$input_file_new" -fill "#928F98" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Silver.png"
 
   # Get new percentage (Compress silver - task 19)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2183,7 +2183,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Silver.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2193,7 +2193,7 @@ for decal in $input_dir/*; do
 
   # Create and compress Pink image
   # Get new percentage (Colorize pink - task 20)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2204,7 +2204,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Pink.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2213,7 +2213,7 @@ for decal in $input_dir/*; do
   convert "$input_file_new" -fill "#FFADE5" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Pink.png"
 
   # Get new percentage (Compress pink - task 21)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2224,7 +2224,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Pink.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2234,7 +2234,7 @@ for decal in $input_dir/*; do
 
   # Create and compress purple image
   # Get new percentage (Colorize purple - task 22)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2245,7 +2245,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Purple.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2254,7 +2254,7 @@ for decal in $input_dir/*; do
   convert "$input_file_new" -fill "#452167" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Purple.png"
 
   # Get new percentage (Compress purple - task 23)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2265,7 +2265,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Purple.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2275,7 +2275,7 @@ for decal in $input_dir/*; do
 
   # Create and compress Dark-Blue image
   # Get new percentage (Colorize dark-blue - task 24)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2286,7 +2286,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Dark-Blue.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2295,7 +2295,7 @@ for decal in $input_dir/*; do
   convert "$input_file_new" -fill "#003478" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Dark-Blue.png"
 
   # Get new percentage (Compress dark-blue - task 25)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2306,7 +2306,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Dark-Blue\n\n${percentage_new}%" ; sleep 0.2
@@ -2316,7 +2316,7 @@ for decal in $input_dir/*; do
 
   # Create and compress Orange image
   # Get percentage (Colorize orange - task 26)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2327,7 +2327,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Orange.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2336,7 +2336,7 @@ for decal in $input_dir/*; do
   convert "$input_file_new" -fill "#d56f31" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Orange.png"
 
   # Get new percentage (Compress orange - task 27)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2347,7 +2347,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Orange.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2357,7 +2357,7 @@ for decal in $input_dir/*; do
 
   # Create and compress Yellow image
   # Get new percentage (Colorize yellow - task 28)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2368,7 +2368,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Yellow.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2377,7 +2377,7 @@ for decal in $input_dir/*; do
   convert "$input_file_new" -fill "#f3e11f" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Yellow.png"
 
   # Get new percentage (Compress yellow - task 29)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2388,7 +2388,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Yellow.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2398,7 +2398,7 @@ for decal in $input_dir/*; do
 
   # Create and compress Neon-Green image
   # Get new percentage (Colorize neon green - task 30)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2409,7 +2409,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Neon-Green.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2418,7 +2418,7 @@ for decal in $input_dir/*; do
   convert "$input_file_new" -fill "#39FF14" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-Neon-Green.png"
 
   # Get new percentage (Compress neon green - task 31)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2429,7 +2429,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Neon-Green.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2443,7 +2443,7 @@ for decal in $input_dir/*; do
 
   # Convert decal to gif
   # Get new percentage (GIF - task 32)
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2454,7 +2454,7 @@ for decal in $input_dir/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage_new" ; sleep 0.2
+  echo "$percentage" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Creating GIF\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}.gif\n\n${percentage_new}%" ; sleep 0.2
@@ -2472,7 +2472,7 @@ for decal in $input_dir/*; do
     input_file_no_path_or_ext=$(basename "${decal_basename%.*}")
 
     # Get new percentage
-    percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+    percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
     # Create new percentage without decimal
     percentage_new="${percentage%%.*}"
@@ -2483,7 +2483,7 @@ for decal in $input_dir/*; do
     fi
 
     # Echo percentage to zenity progress
-    echo "$percentage_new" ; sleep 0.2
+    echo "$percentage" ; sleep 0.2
 
     # Echo text to zenity progress
     echo "# Task: Creating tablet image\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2575,7 +2575,7 @@ fi
 total_files=$(ls "$input_dir" 2> /dev/null | wc -l)
 
 # Get number to increment progress bar by
-increment=$(echo "scale=2; 100/${total_files}" | bc)
+increment=$(echo "scale=5; 99/${total_files}" | bc)
 
 # Set initial percentage
 percentage="0"
@@ -2705,7 +2705,7 @@ fi
 total_files=$(ls "$input_dir" 2> /dev/null | wc -l)
 
 # Get number to increment progress bar by
-increment=$(echo "scale=2; 99/${total_files}" | bc)
+increment=$(echo "scale=5; 99/${total_files}" | bc)
 
 # Set initial percentage
 percentage="0"
@@ -2794,7 +2794,7 @@ fi
 total_files=$(ls "$input_dir" 2> /dev/null | wc -l)
 
 # Get number to increment progress bar by
-increment="$(echo "scale=2; 99/${total_files}" | bc)"
+increment="$(echo "scale=5; 99/${total_files}" | bc)"
 
 # Set initial percentage
 percentage="0"
@@ -2818,7 +2818,7 @@ for decal in $input_dir/* ; do
   cp "$decal" "$original_dir"
 
   # Get new percentage
-  percentage="$(echo "scale=2; ${percentage}+${increment}" | bc)"
+  percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -2870,7 +2870,7 @@ increment="3.807692308"
 
 # Create and compress white image (task 1)
 # Calculate percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -2890,7 +2890,7 @@ echo "# Task: Colorize and compress (Single file)\n\nCreating: ${input_file_no_p
 convert "$input_file" -fill "#ffffff" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-White.png"
 
 # Compressing (task 2)
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -2911,7 +2911,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress black image (task 3)
 # Calculate percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -2932,7 +2932,7 @@ convert "$input_file" -fill "#000000" -colorize "100" "${colorized_dir}/${input_
 
 # Compressing (task 4)
 # Calculate percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -2953,7 +2953,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Blue image (task 5)
 # Calculate percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -2974,7 +2974,7 @@ convert "$input_file" -fill "#1791d8" -colorize "100" "${colorized_dir}/${input_
 
 # Compressing (task 6)
 # Calculate percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -2995,7 +2995,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Teal image (task 7)
 # Calculate percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -3016,7 +3016,7 @@ convert "$input_file" -fill "#29bbc8" -colorize "100" "${colorized_dir}/${input_
 
 # Compressing (task 8)
 # Calculate percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -3037,7 +3037,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Red image (task 9)
 # Calculate percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -3058,7 +3058,7 @@ convert "$input_file" -fill "#a01922" -colorize "100" "${colorized_dir}/${input_
 
 # Compressing (task 10)
 # Calculate percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -3079,7 +3079,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Green image (task 11)
 # Calculate percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -3100,7 +3100,7 @@ convert "$input_file" -fill "#008c35" -colorize "100" "${colorized_dir}/${input_
 
 # Compressing (task 12)
 # Calculate percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -3121,7 +3121,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Silver image (task 13)
 # Calculate new percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -3142,7 +3142,7 @@ convert "$input_file" -fill "#928F98" -colorize "100" "${colorized_dir}/${input_
 
 # Compressing (task 14)
 # Calculate new percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -3163,7 +3163,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Pink image (task 15)
 # Calculate new percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -3184,7 +3184,7 @@ convert "$input_file" -fill "#FFADE5" -colorize "100" "${colorized_dir}/${input_
 
 # Compressing (task 16)
 # Calculate new percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -3205,7 +3205,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress purple image (task 17)
 # Calculate new percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -3226,7 +3226,7 @@ convert "$input_file" -fill "#452167" -colorize "100" "${colorized_dir}/${input_
 
 # Compressing (task 18)
 # Calculate new percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -3247,7 +3247,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Dark-Blue image (task 18)
 # Calculate new percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -3268,7 +3268,7 @@ convert "$input_file" -fill "#003478" -colorize "100" "${colorized_dir}/${input_
 
 # Compressing (task 19)
 # Calculate new percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -3289,7 +3289,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Orange image (task 20)
 # Calculate new percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -3310,7 +3310,7 @@ convert "$input_file" -fill "#d56f31" -colorize "100" "${colorized_dir}/${input_
 
 # Compressing (task 21)
 # Calculate new percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -3331,7 +3331,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Yellow image (task 22)
 # Calculate new percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -3350,7 +3350,7 @@ convert "$input_file" -fill "#f3e11f" -colorize "100" "${colorized_dir}/${input_
 
 # Compressing (task 23)
 # Calculate new percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -3371,7 +3371,7 @@ pngquant --force --quality=60-100 --strip --skip-if-larger --verbose --output "$
 
 # Create and compress Neon-Green image (task 24)
 # Calculate new percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -3392,7 +3392,7 @@ convert "$input_file" -fill "#39FF14" -colorize "100" "${colorized_dir}/${input_
 
 # Compressing (task 26)
 # Calculate new percentage
-percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
 # Create new percentage without decimal
 percentage_new="${percentage%%.*}"
@@ -3439,7 +3439,7 @@ total_files=$(ls "$input_dir" 2> /dev/null | wc -l)
 tasks=$(echo "${total_files}*26" | bc)
 
 # Get number to increment progress bar by
-increment=$(echo "scale=2; 99/${tasks}" | bc)
+increment=$(echo "scale=5; 99/${tasks}" | bc)
 
 # Set current decal number in loop
 current_decal_number="0"
@@ -3461,7 +3461,7 @@ for decal in "${input_dir}"/* ; do
 
   # Create and compress white image (task 1)
   # Calculate percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3481,7 +3481,7 @@ for decal in "${input_dir}"/* ; do
   convert "$decal" -fill "#ffffff" -colorize "100" "${colorized_dir}/${input_file_no_path_or_ext}/${input_file_no_path_or_ext}-White.png"
 
   # Compressing (task 2)
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3502,7 +3502,7 @@ for decal in "${input_dir}"/* ; do
 
   # Create and compress black image (task 3)
   # Calculate percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3523,7 +3523,7 @@ for decal in "${input_dir}"/* ; do
 
   # Compressing (task 4)
   # Calculate percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3544,7 +3544,7 @@ for decal in "${input_dir}"/* ; do
 
   # Create and compress Blue image (task 5)
   # Calculate percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3565,7 +3565,7 @@ for decal in "${input_dir}"/* ; do
 
   # Compressing (task 6)
   # Calculate percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3586,7 +3586,7 @@ for decal in "${input_dir}"/* ; do
 
   # Create and compress Teal image (task 7)
   # Calculate percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3607,7 +3607,7 @@ for decal in "${input_dir}"/* ; do
 
   # Compressing (task 8)
   # Calculate percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3628,7 +3628,7 @@ for decal in "${input_dir}"/* ; do
 
   # Create and compress Red image (task 9)
   # Calculate percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3649,7 +3649,7 @@ for decal in "${input_dir}"/* ; do
 
   # Compressing (task 10)
   # Calculate percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3670,7 +3670,7 @@ for decal in "${input_dir}"/* ; do
 
   # Create and compress Green image (task 11)
   # Calculate percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3691,7 +3691,7 @@ for decal in "${input_dir}"/* ; do
 
   # Compressing (task 12)
   # Calculate percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3712,7 +3712,7 @@ for decal in "${input_dir}"/* ; do
 
   # Create and compress Silver image (task 13)
   # Calculate new percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3733,7 +3733,7 @@ for decal in "${input_dir}"/* ; do
 
   # Compressing (task 14)
   # Calculate new percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3754,7 +3754,7 @@ for decal in "${input_dir}"/* ; do
 
   # Create and compress Pink image (task 15)
   # Calculate new percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3775,7 +3775,7 @@ for decal in "${input_dir}"/* ; do
 
   # Compressing (task 16)
   # Calculate new percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3796,7 +3796,7 @@ for decal in "${input_dir}"/* ; do
 
   # Create and compress purple image (task 17)
   # Calculate new percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3817,7 +3817,7 @@ for decal in "${input_dir}"/* ; do
 
   # Compressing (task 18)
   # Calculate new percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3838,7 +3838,7 @@ for decal in "${input_dir}"/* ; do
 
   # Create and compress Dark-Blue image (task 18)
   # Calculate new percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3859,7 +3859,7 @@ for decal in "${input_dir}"/* ; do
 
   # Compressing (task 19)
   # Calculate new percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3880,7 +3880,7 @@ for decal in "${input_dir}"/* ; do
 
   # Create and compress Orange image (task 20)
   # Calculate new percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3901,7 +3901,7 @@ for decal in "${input_dir}"/* ; do
 
   # Compressing (task 21)
   # Calculate new percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3922,7 +3922,7 @@ for decal in "${input_dir}"/* ; do
 
   # Create and compress Yellow image (task 22)
   # Calculate new percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3941,7 +3941,7 @@ for decal in "${input_dir}"/* ; do
 
   # Compressing (task 23)
   # Calculate new percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3962,7 +3962,7 @@ for decal in "${input_dir}"/* ; do
 
   # Create and compress Neon-Green image (task 24)
   # Calculate new percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -3983,7 +3983,7 @@ for decal in "${input_dir}"/* ; do
 
   # Compressing (task 26)
   # Calculate new percentage
-  percentage=$(echo "scale=2; ${percentage}+${increment}" | bc)
+  percentage=$(echo "scale=5; ${percentage}+${increment}" | bc)
 
   # Create new percentage without decimal
   percentage_new="${percentage%%.*}"
@@ -4052,7 +4052,7 @@ dir_output="$gif_dir"
 total_directories=$(ls "$dir_input" 2> /dev/null | wc -l)
 
 # Get number to increment progress bar by
-increment=$(echo "scale=2; 99/${total_directories}" | bc)
+increment=$(echo "scale=5; 99/${total_directories}" | bc)
 
 # Set initial percentage
 percentage="0"
@@ -4102,7 +4102,7 @@ dir_input="$colorized_dir"
 total_files=$(ls $dir_input/*/*.png 2> /dev/null | wc -l)
 
 # Get number to increment progress bar by
-increment=$(echo "scale=2; 99/${total_files}" | bc)
+increment=$(echo "scale=5; 99/${total_files}" | bc)
 
 # Set initial percentage
 percentage="0"
