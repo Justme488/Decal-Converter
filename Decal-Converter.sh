@@ -266,9 +266,11 @@ echo "# Task: Resizing Decal\n\Resizing: ${input_file_no_path_or_ext}.png\n\n${p
 
 # Resize based on larger dimension
 if [[ "$input_file_width" -ge "$input_file_height" ]]; then
-  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -background transparent "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+  composite  -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
 else
-  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize x750 -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize x750 -background transparent "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+  composite  -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
 fi
 
 # Move resized-transparent file from temp directory to resized-transparent directory
@@ -1048,9 +1050,11 @@ echo "# Task: Resizing Decal\n\Resizing: ${input_file_no_path_or_ext}.png\n\n${p
 
 # Resize based on larger dimension
 if [[ "$input_file_width" -ge "$input_file_height" ]]; then
-  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -background transparent "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+  composite  -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
 else
-  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize x750 -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize x750 -background transparent "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+  composite  -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
 fi
 
 # Move resized-transparent file from temp directory to resized-transparent directory
@@ -1833,8 +1837,11 @@ for decal in ${input_dir}/*; do
 
   # Resize based on larger dimension
   if [[ "$input_file_width" -ge "$input_file_height" ]]; then
-    convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
-  else convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize x750 -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+    convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -background transparent "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+    composite  -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+  else
+    convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize x750 -background transparent "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+    composite  -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
   fi
 
   # Move resized-transparent file from temp directory to resized-transparent directory
@@ -2548,10 +2555,13 @@ input_file_width="$(identify -format "%w" "${temp_dir}/${input_file_no_path_or_e
 # Get input image height
 input_file_height="$(identify -format "%h" "${temp_dir}/${input_file_no_path_or_ext}.png")"
 
-# Resize larger image dimension to 750px, and then paste onto 800x800 transparent background
-if [[ "$input_width" -ge "$input_height" ]]; then
-  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
-else convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize x750 -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+# Resize based on larger dimension
+if [[ "$input_file_width" -ge "$input_file_height" ]]; then
+  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -background transparent "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+  composite  -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+else
+  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize x750 -background transparent "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+  composite  -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
 fi
 
 mv "${temp_dir}/${input_file_no_path_or_ext}_resized.png" "${resized_transparent}/${input_file_no_path_or_ext}.png"
@@ -2640,16 +2650,13 @@ for decal in "$input_dir/"*; do
   # Get input image height
   input_height=$(identify -format "%h" "${temp_dir}/${input_file_no_path_or_ext}.png")
 
-  # Resize larger image dimension to 750px, and then paste onto 800x800 transparent background
-  if [[ "$input_width" > "$input_height" ]]; then
-    convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750X -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
-  else convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize X750 -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
-  fi
-
-  # Resize larger image dimension to 750px, and then paste onto 800x800 transparent background
-  if [[ "$input_width" -ge "$input_height" ]]; then
-    convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
-  else convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize x750 -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+  # Resize based on larger dimension
+  if [[ "$input_file_width" -ge "$input_file_height" ]]; then
+    convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -background transparent "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+    composite  -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+  else
+    convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize x750 -background transparent "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+    composite  -background transparent -gravity center -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
   fi
 
   mv "${temp_dir}/${input_file_no_path_or_ext}_resized.png" "${resized_transparent}/${input_file_no_path_or_ext}.png"
