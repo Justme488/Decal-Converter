@@ -146,7 +146,7 @@ opt12="Multiple Conversion"
 ########################################################
 all_tasks_single () {
 # Get number to increment progress bar by (45 actions / 99)
-increment="2.357142857"
+increment="2.2"
 
 # Set initial percentage
 percentage="0"
@@ -219,26 +219,18 @@ fi
 # Echo percentage to zenity progress
 echo "$percentage_new" ; sleep 0.2
 
-# Check if image is transparent
-transparency_check=$(identify -format %A "$input_file")
-
-# If the file contains transparency
-if [[ "$transparency_check" == "True" ]]; then
-  # Convert decal to jpg
-  convert "$input_file" -sharpen 0x -background white -alpha remove -alpha off "${temp_dir}/${input_file_no_path_or_ext}.jpg"
-else
-  # Convert decal tp jpg
-  convert "$input_file" -sharpen 0x "${temp_dir}/${input_file_no_path_or_ext}.jpg"
-fi
+# Convert to jpg,pgm,svg,png to remove background
+# Convert decal to jpg
+convert "$input_file" -sharpen 0x -background white -alpha remove -alpha off -colorspace sRGB -quality "95" "${temp_dir}/${input_file_no_path_or_ext}.jpg"
 
 # Convert decal to pgm"
-convert "${temp_dir}/${input_file_no_path_or_ext}.jpg" "${temp_dir}/${input_file_no_path_or_ext}.pgm"
+convert "${temp_dir}/${input_file_no_path_or_ext}.jpg" -quality "95" "${temp_dir}/${input_file_no_path_or_ext}.pgm"
 
 # Convert bmp to svg
-potrace --svg "${temp_dir}/${input_file_no_path_or_ext}.pgm" -o "${temp_dir}/${input_file_no_path_or_ext}.svg"
+potrace --svg "${temp_dir}/${input_file_no_path_or_ext}.pgm"
 
 # Convert svg to png
-mogrify -background none -density 500 -format png "${temp_dir}/${input_file_no_path_or_ext}.svg"
+convert -quality "95" -background none -density 500 "${temp_dir}/${input_file_no_path_or_ext}.svg" -trim +repage -alpha set -bordercolor "transparent" -border "5x5" "${temp_dir}/${input_file_no_path_or_ext}.png" 
 
 # Get input image width
 input_file_width="$(identify -format "%w" "${temp_dir}/${input_file_no_path_or_ext}.png")"
@@ -262,13 +254,13 @@ fi
 echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
-echo "# Task: Resizing Decal\n\Resizing: ${input_file_no_path_or_ext}.png\n\n${percentage_new}%" ; sleep 0.2
+echo "# Task: Resizing Decal\n\nResizing: ${input_file_no_path_or_ext}.png\n\n${percentage_new}%" ; sleep 0.2
 
 # Resize based on larger dimension
 if [[ "$input_file_width" -ge "$input_file_height" ]]; then
-  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -gravity center -background transparent -extent 800x800  "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -colorspace sRGB -resize 750x -gravity center -background transparent -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
 else
-  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -gravity center -background transparent -extent 800x800  "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -colorspace sRGB -resize x750 -gravity center -background transparent -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
 fi
 
 # Move resized-transparent file from temp directory to resized-transparent directory
@@ -888,10 +880,10 @@ echo "$percentage_new" ; sleep 0.2
 echo "# Task: Creating GIF\n\nCreating: ${input_file_no_path_or_ext}.gif\n\n${percentage_new}%" ; sleep 0.2
 
 # Convert decal to GIF
-convert -dispose previous -delay 100 -loop 0 "${input_dir}/*.png" "${gif_dir}/${input_file_no_path_or_ext}.gif"
+convert -dispose previous -delay 100 -loop 0 "${input_dir}/"*.png "${gif_dir}/${input_file_no_path_or_ext}.gif"
 
 # Tablet (add 13 tasks - 45 total)
-for decal in "${colorized_dir}/${input_file_no_path_or_ext}"/*.png ; do
+for decal in "${colorized_dir}/${input_file_no_path_or_ext}/"*.png ; do
 
   # Get decal basename
   decal_basename="$(basename "${decal}")"
@@ -915,6 +907,7 @@ for decal in "${colorized_dir}/${input_file_no_path_or_ext}"/*.png ; do
 
   # Create tablet images
   composite "$decal" "/usr/share/decal-converter/bg-tablet.png" -gravity Center -quality 95 "${tablet_dir}/${decal_basename}"
+  
 done
 
 # Echo percentage to zenity progress
@@ -928,7 +921,7 @@ echo "# Task: All tasks finished\n\n100%" ; sleep 2
 #################################################################
 all_tasks_single_mirrored () {
 # Get number to increment progress bar by (45 actions / 99)
-increment="2.357142857"
+increment="2.2"
 
 # Set initial percentage
 percentage="0"
@@ -1001,27 +994,18 @@ fi
 # Echo percentage to zenity progress
 echo "$percentage_new" ; sleep 0.2
 
-# Check if image is transparent
-transparency_check=$(identify -format %A "$input_file")
-
-# If the file contains transparency
-if [[ "$transparency_check" == "True" ]]; then
-  # Convert decal to jpg
-  convert "$input_file" -sharpen 0x -background white -alpha remove -alpha off -flop "${temp_dir}/${input_file_no_path_or_ext}.jpg"
-else
-  # Convert decal tp jpg
-  convert "$input_file" -sharpen 0x -flop "${temp_dir}/${input_file_no_path_or_ext}.jpg"
-fi
+# Convert to jpg,pgm,svg,png to remove background
+# Convert decal to jpg
+convert "$input_file" -sharpen 0x -background white -alpha remove -alpha off -colorspace sRGB -quality "95" "${temp_dir}/${input_file_no_path_or_ext}.jpg"
 
 # Convert decal to pgm"
-convert "${temp_dir}/${input_file_no_path_or_ext}.jpg" "${temp_dir}/${input_file_no_path_or_ext}.pgm"
+convert "${temp_dir}/${input_file_no_path_or_ext}.jpg" -quality "95" "${temp_dir}/${input_file_no_path_or_ext}.pgm"
 
 # Convert bmp to svg
-potrace --svg "${temp_dir}/${input_file_no_path_or_ext}.pgm" -o "${temp_dir}/${input_file_no_path_or_ext}.svg"
+potrace --svg "${temp_dir}/${input_file_no_path_or_ext}.pgm"
 
 # Convert svg to png
-mogrify -background none -density 500 -format png "${temp_dir}/${input_file_no_path_or_ext}.svg"
-
+convert -quality "95" -background none -density 500 "${temp_dir}/${input_file_no_path_or_ext}.svg" -trim +repage -alpha set -bordercolor "transparent" -border "5x5" "${temp_dir}/${input_file_no_path_or_ext}.png"
 # Get input image width
 input_file_width="$(identify -format "%w" "${temp_dir}/${input_file_no_path_or_ext}.png")"
 
@@ -1044,13 +1028,13 @@ fi
 echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
-echo "# Task: Resizing Decal\n\Resizing: ${input_file_no_path_or_ext}.png\n\n${percentage_new}%" ; sleep 0.2
+echo "# Task: Resizing Decal\n\nResizing: ${input_file_no_path_or_ext}.png\n\n${percentage_new}%" ; sleep 0.2
 
 # Resize based on larger dimension
 if [[ "$input_file_width" -ge "$input_file_height" ]]; then
-  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -gravity center -background transparent -extent 800x800  "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -gravity center -background transparent -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
 else
-  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -gravity center -background transparent -extent 800x800  "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize x750 -gravity center -background transparent -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
 fi
 
 # Move resized-transparent file from temp directory to resized-transparent directory
@@ -1670,10 +1654,10 @@ echo "$percentage_new" ; sleep 0.2
 echo "# Task: Creating GIF\n\nCreating: ${input_file_no_path_or_ext}.gif\n\n${percentage_new}%" ; sleep 0.2
 
 # Convert decal to GIF
-convert -dispose previous -delay 100 -loop 0 "${input_dir}/*.png" "${gif_dir}/${input_file_no_path_or_ext}.gif"
+convert -dispose previous -delay 100 -loop 0 "${input_dir}/"*.png "${gif_dir}/${input_file_no_path_or_ext}.gif"
 
 # Tablet (add 13 tasks - 45 total)
-for decal in "${colorized_dir}/${input_file_no_path_or_ext}"/*.png ; do
+for decal in "${colorized_dir}/${input_file_no_path_or_ext}/"*.png ; do
 
   # Get decal basename
   decal_basename="$(basename "${decal}")"
@@ -1735,7 +1719,7 @@ increment="$(echo "scale=4; 99/${tasks}" | bc)"
 current_decal_number="0"
 
 # Start loop
-for decal in ${input_dir}/*; do
+for decal in "${input_dir}/"*; do
 
   # Set value for current decal in loop
   ((current_decal_number++))
@@ -1755,7 +1739,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Creating backup\n\nDecal ${current_decal_number} of ${total_files}\n\nCopying: ${input_file_no_path} to \"Original\" directory\n\n${percentage_new}%" ; sleep 0.2
@@ -1766,29 +1750,18 @@ for decal in ${input_dir}/*; do
   # Remove path and extension from input file
   input_file_no_path_or_ext="$(basename "${decal%.*}")"
 
-  # Check if image is transparent
-  transparency_check=$(identify -format %A "$decal")
-
-  # If the file contains transparency
-  if [[ "$transparency_check" == "True" ]]; then
-    # Convert decal to jpg
-    convert "$decal" -sharpen 0x -background white -alpha remove -alpha off "${temp_dir}/${input_file_no_path_or_ext}.jpg"
-  else
-    # Convert decal tp jpg
-    convert "$decal" -sharpen 0x "${temp_dir}/${input_file_no_path_or_ext}.jpg"
-  fi
+  # Convert to jpg,pgm,svg,png to remove background
+  # Convert decal to jpg
+  convert "$decal" -sharpen 0x -background white -alpha remove -alpha off -colorspace sRGB -quality "95" "${temp_dir}/${input_file_no_path_or_ext}.jpg"
 
   # Convert decal to pgm"
-  convert "${temp_dir}/${input_file_no_path_or_ext}.jpg" "${temp_dir}/${input_file_no_path_or_ext}.pgm"
+  convert "${temp_dir}/${input_file_no_path_or_ext}.jpg" -quality "95" "${temp_dir}/${input_file_no_path_or_ext}.pgm"
 
   # Convert bmp to svg
-  potrace --svg "${temp_dir}/${input_file_no_path_or_ext}.pgm" -o "${temp_dir}/${input_file_no_path_or_ext}.svg"
+  potrace --svg "${temp_dir}/${input_file_no_path_or_ext}.pgm"
 
   # Convert svg to png
-  mogrify -background none -density 500 -format png "${temp_dir}/${input_file_no_path_or_ext}.svg"
-
-  # Get input image width
-  input_file_width="$(identify -format "%w" "${temp_dir}/${input_file_no_path_or_ext}.png")"
+  convert -quality "95" -background none -density 500 "${temp_dir}/${input_file_no_path_or_ext}.svg" -trim +repage -alpha set -bordercolor "transparent" -border "5x5" "${temp_dir}/${input_file_no_path_or_ext}.png"
 
   # Get new percentage (Remove backgroud - task 2)
   percentage="$(echo "scale=5; ${percentage}+${increment}" | bc)"
@@ -1802,7 +1775,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Remove Backgroud\n\nDecal ${current_decal_number} of ${total_files}\n\nRemoving background from: ${input_file_no_path_or_ext}\n\n${percentage_new}%" ; sleep 0.2
@@ -1826,16 +1799,16 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Resizing decal\n\nDecal ${current_decal_number} of ${total_files}\n\nResizing: ${input_file_no_path_or_ext}\n\n${percentage_new}%" ; sleep 0.2
 
   # Resize based on larger dimension
   if [[ "$input_file_width" -ge "$input_file_height" ]]; then
-    convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -gravity center -background transparent -extent 800x800  "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+    convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -gravity center -background transparent -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
   else
-    convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -gravity center -background transparent -extent 800x800  "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+    convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize x750 -gravity center -background transparent -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
   fi
 
   # Move resized-transparent file from temp directory to resized-transparent directory
@@ -1860,7 +1833,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Fill all visible color with black\n\nDecal ${current_decal_number} of ${total_files}\n\nConverting: ${input_file_no_path_or_ext}.png\n\n${percentage_new}%" ; sleep 0.2
@@ -1887,7 +1860,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Put decal on white background\n\nDecal ${current_decal_number} of ${total_files}\n\nConverting: ${input_file_no_path_or_ext}.png\n\n${percentage_new}%" ; sleep 0.2
@@ -1918,7 +1891,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-White.png\n\n${percentage_new}%" ; sleep 0.2
@@ -1959,7 +1932,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Black.png\n\n${percentage_new}%" ; sleep 0.2
@@ -1979,7 +1952,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Black.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2000,7 +1973,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Blue.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2020,7 +1993,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Blue.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2041,7 +2014,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Teal.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2061,7 +2034,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Teal.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2082,7 +2055,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Red.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2102,7 +2075,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Red.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2123,7 +2096,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Green.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2143,7 +2116,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Green.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2164,7 +2137,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Silver.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2184,7 +2157,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Silver.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2205,7 +2178,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Pink.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2225,7 +2198,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Pink.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2246,7 +2219,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Purple.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2266,7 +2239,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Purple.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2287,7 +2260,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Dark-Blue.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2307,7 +2280,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Dark-Blue\n\n${percentage_new}%" ; sleep 0.2
@@ -2328,7 +2301,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Orange.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2348,7 +2321,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Orange.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2369,7 +2342,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Yellow.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2389,7 +2362,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Yellow.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2410,7 +2383,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Neon-Green.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2430,7 +2403,7 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize\n\nDecal ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Neon-Green.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2455,16 +2428,16 @@ for decal in ${input_dir}/*; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Creating GIF\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}.gif\n\n${percentage_new}%" ; sleep 0.2
 
   # Convert decal to GIF
-    convert -dispose previous -delay 100 -loop 0 "${input_dir}/*.png" "${gif_dir}/${input_file_no_path_or_ext}.gif"
+    convert -dispose previous -delay 100 -loop 0 "${input_dir}/"*.png "${gif_dir}/${input_file_no_path_or_ext}.gif"
 
   # Tablet (add 13 tasks - 45 total)
-  for decal in ${colorized_dir}/${input_file_no_path_or_ext}/*.png; do
+  for decal in "${colorized_dir}/${input_file_no_path_or_ext}/"*.png; do
 
     # Get decal basename
     decal_basename="$(basename "${decal}")"
@@ -2484,7 +2457,7 @@ for decal in ${input_dir}/*; do
     fi
 
     # Echo percentage to zenity progress
-    echo "$percentage" ; sleep 0.2
+    echo "$percentage_new" ; sleep 0.2
 
     # Echo text to zenity progress
     echo "# Task: Creating tablet image\n\nDecal ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2521,27 +2494,18 @@ input_file_no_path=$(basename "${input_file}")
 # Remove path and extension from input directory
 input_file_no_path_or_ext="$(basename "${input_file%.*}")"
 
-# Convert to jpg,bmp,svg,png to remove background
-# Check if image is transparent
-transparency_check=$(identify -format %A "$input_file")
-
-# If the file contains transparency
-if [[ "$transparency_check" == "True" ]]; then
-  # Convert decal to jpg
-  convert "$input_file" -sharpen 0x -background white -alpha remove -alpha off "${temp_dir}/${input_file_no_path_or_ext}.jpg"
-else
-  # Convert decal to jpg
-  convert "$input_file" -sharpen 0x "${temp_dir}/${input_file_no_path_or_ext}.jpg"
-fi
+# Convert to jpg,pgm,svg,png to remove background
+# Convert decal to jpg
+convert "$input_file" -sharpen 0x -background white -alpha remove -alpha off -colorspace sRGB -quality "95" "${temp_dir}/${input_file_no_path_or_ext}.jpg"
 
 # Convert decal to pgm"
-convert "${temp_dir}/${input_file_no_path_or_ext}.jpg" "${temp_dir}/${input_file_no_path_or_ext}.pgm"
+convert "${temp_dir}/${input_file_no_path_or_ext}.jpg" -quality "95" "${temp_dir}/${input_file_no_path_or_ext}.pgm"
 
 # Convert bmp to svg
-potrace --svg "${temp_dir}/${input_file_no_path_or_ext}.pgm" -o "${temp_dir}/${input_file_no_path_or_ext}.svg"
+potrace --svg "${temp_dir}/${input_file_no_path_or_ext}.pgm"
 
 # Convert svg to png
-mogrify -background none -density 500 -format png "${temp_dir}/${input_file_no_path_or_ext}.svg"
+convert -quality "95" -background none -density 500 "${temp_dir}/${input_file_no_path_or_ext}.svg" -trim +repage -alpha set -bordercolor "transparent" -border "5x5" "${temp_dir}/${input_file_no_path_or_ext}.png"
 
 # Get input image width
 input_file_width="$(identify -format "%w" "${temp_dir}/${input_file_no_path_or_ext}.png")"
@@ -2551,9 +2515,9 @@ input_file_height="$(identify -format "%h" "${temp_dir}/${input_file_no_path_or_
 
 # Resize based on larger dimension
 if [[ "$input_file_width" -ge "$input_file_height" ]]; then
-  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -gravity center -background transparent -extent 800x800  "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -gravity center -background transparent -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
 else
-  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -gravity center -background transparent -extent 800x800  "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+  convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize x750 -gravity center -background transparent -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
 fi
 
 mv "${temp_dir}/${input_file_no_path_or_ext}_resized.png" "${resized_transparent}/${input_file_no_path_or_ext}.png"
@@ -2586,7 +2550,13 @@ percentage="0"
 current_decal_number="0"
 
 # Create main loop of input files
-for decal in "$input_dir/"*; do
+for decal in "$input_dir/"* ; do
+
+  # Get filname without path
+  decal_basename=$(basename "${decal}")
+
+  # Get filename without path or extension
+  input_file_no_path_or_ext=$(basename "${decal_basename%.*}")
 
   # Set value for current decal in loop
   ((current_decal_number++))
@@ -2608,45 +2578,30 @@ for decal in "$input_dir/"*; do
   # Echo text for zenity progress
   echo "# Task: Remove background and resize\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}.png\n\n${percentage_new}%" ; sleep 0.2
 
-  # Get filname without path
-  decal_basename=$(basename "${decal}")
-
-  # Get filename without path or extension
-  input_file_no_path_or_ext=$(basename "${decal_basename%.*}")
-
-  # Convert to jpg,bmp,svg,png to remove background (task 2 - remove background)
-  # Check if image is transparent
-  transparency_check=$(identify -format %A "$decal")
-
-  # If the file contains transparency
-  if [[ "$transparency_check" == "True" ]]; then
-    # Convert decal to jpg
-    convert "$decal" -sharpen 0x -background white -alpha remove -alpha off "${temp_dir}/${input_file_no_path_or_ext}.jpg"
-  else
-    # Convert decal to jpg
-    convert "$decal" -sharpen 0x "${temp_dir}/${input_file_no_path_or_ext}.jpg"
-  fi
+  # Convert to jpg,pgm,svg,png to remove background (task 2 - remove background)
+  # Convert decal to jpg
+  convert "$decal" -sharpen 0x -background white -alpha remove -alpha off -colorspace sRGB -quality "95" "${temp_dir}/${input_file_no_path_or_ext}.jpg"
 
   # Convert decal to pgm"
-  convert "${temp_dir}/${input_file_no_path_or_ext}.jpg" "${temp_dir}/${input_file_no_path_or_ext}.pgm"
+  convert "${temp_dir}/${input_file_no_path_or_ext}.jpg" -quality "95" "${temp_dir}/${input_file_no_path_or_ext}.pgm"
 
   # Convert bmp to svg
-  potrace --svg "${temp_dir}/${input_file_no_path_or_ext}.pgm" -o "${temp_dir}/${input_file_no_path_or_ext}.svg"
+  potrace --svg "${temp_dir}/${input_file_no_path_or_ext}.pgm"
 
   # Convert svg to png
-  mogrify -background none -density 500 -format png "${temp_dir}/${input_file_no_path_or_ext}.svg"
-
+  convert -quality "95" -background none -density 500 "${temp_dir}/${input_file_no_path_or_ext}.svg" -trim +repage -alpha set -bordercolor "transparent" -border "5x5" "${temp_dir}/${input_file_no_path_or_ext}.png"
+  
   # Get input image width
-  input_width=$(identify -format "%w" "${temp_dir}/${input_file_no_path_or_ext}.png")
+  input_file_width=$(identify -format "%w" "${temp_dir}/${input_file_no_path_or_ext}.png")
 
   # Get input image height
-  input_height=$(identify -format "%h" "${temp_dir}/${input_file_no_path_or_ext}.png")
+  input_file_height=$(identify -format "%h" "${temp_dir}/${input_file_no_path_or_ext}.png")
 
   # Resize based on larger dimension
   if [[ "$input_file_width" -ge "$input_file_height" ]]; then
-    convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -gravity center -background transparent -extent 800x800  "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+    convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -gravity center -background transparent -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
   else
-    convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize 750x -gravity center -background transparent -extent 800x800  "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
+    convert "${temp_dir}/${input_file_no_path_or_ext}.png" -resize x750 -gravity center -background transparent -extent 800x800 "${temp_dir}/${input_file_no_path_or_ext}_resized.png"
   fi
 
   mv "${temp_dir}/${input_file_no_path_or_ext}_resized.png" "${resized_transparent}/${input_file_no_path_or_ext}.png"
@@ -2711,7 +2666,7 @@ percentage="0"
 current_decal_number="0"
 
 # Start looping through directory
-for decal in "${input_dir}"/* ; do
+for decal in "${input_dir}/"* ; do
 
   # Remove path for zenity progress
   decal_basename=$(basename "${decal%.*}")
@@ -2800,7 +2755,7 @@ percentage="0"
 current_decal_number="0"
 
 # Start loop
-for decal in $input_dir/* ; do
+for decal in "$input_dir/"* ; do
 
   # Get basename of "decal"
   input_file_no_path="$(basename "$decal")"
@@ -2826,7 +2781,7 @@ for decal in $input_dir/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: White Background\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nAdding white background to: ${input_file_no_path_or_ext}.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2878,7 +2833,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCreating: ${input_file_no_path_or_ext}-White.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2898,7 +2853,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCompressing: ${input_file_no_path_or_ext}-White.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2919,7 +2874,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCreating: ${input_file_no_path_or_ext}-Black.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2940,7 +2895,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCompressing: ${input_file_no_path_or_ext}-Black.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2961,7 +2916,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCreating: ${input_file_no_path_or_ext}-Blue.png\n\n${percentage_new}%" ; sleep 0.2
@@ -2982,7 +2937,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCompressing: ${input_file_no_path_or_ext}-Blue.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3003,7 +2958,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCreating: ${input_file_no_path_or_ext}-Teal.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3024,7 +2979,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCompressing: ${input_file_no_path_or_ext}-Teal.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3045,7 +3000,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCreating: ${input_file_no_path_or_ext}-Red.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3066,7 +3021,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCompressing: ${input_file_no_path_or_ext}-Red.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3087,7 +3042,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCreating: ${input_file_no_path_or_ext}-Green.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3108,7 +3063,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCompressing: ${input_file_no_path_or_ext}-Green.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3129,7 +3084,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCreating: ${input_file_no_path_or_ext}-Silver.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3150,7 +3105,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCompressing: ${input_file_no_path_or_ext}-Silver.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3171,7 +3126,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCreating: ${input_file_no_path_or_ext}-Pink.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3192,7 +3147,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCompressing: ${input_file_no_path_or_ext}-Pink.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3213,7 +3168,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCreating: ${input_file_no_path_or_ext}-Purple.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3234,7 +3189,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCompressing: ${input_file_no_path_or_ext}-Purple.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3255,7 +3210,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCreating: ${input_file_no_path_or_ext}-Dark-Blue.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3276,7 +3231,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCompressing: ${input_file_no_path_or_ext}-Dark-Blue\n\n${percentage_new}%" ; sleep 0.2
@@ -3297,7 +3252,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCreating: ${input_file_no_path_or_ext}-Orange.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3318,7 +3273,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCompressing: ${input_file_no_path_or_ext}-Orange.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3339,7 +3294,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCreating: ${input_file_no_path_or_ext}-Yellow.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3358,7 +3313,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCompressing: ${input_file_no_path_or_ext}-Yellow.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3379,7 +3334,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCreating: ${input_file_no_path_or_ext}-Neon-Green.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3400,7 +3355,7 @@ if [[ "$percentage_new" == "" ]]; then
 fi
 
 # Echo percentage to zenity progress
-echo "$percentage" ; sleep 0.2
+echo "$percentage_new" ; sleep 0.2
 
 # Echo text to zenity progress
 echo "# Task: Colorize and compress (Single file)\n\nCompressing: ${input_file_no_path_or_ext}-Neon-Green.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3442,7 +3397,7 @@ increment=$(echo "scale=5; 99/${tasks}" | bc)
 current_decal_number="0"
 
 # Start looping through directory
-for decal in "${input_dir}"/* ; do
+for decal in "${input_dir}/"* ; do
 
   # Set value for current decal in loop
   ((current_decal_number++))
@@ -3469,7 +3424,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-White.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3489,7 +3444,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-White.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3510,7 +3465,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Black.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3531,7 +3486,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Black.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3552,7 +3507,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Blue.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3573,7 +3528,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Blue.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3594,7 +3549,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Teal.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3615,7 +3570,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Teal.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3636,7 +3591,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Red.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3657,7 +3612,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Red.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3678,7 +3633,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Green.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3699,7 +3654,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Green.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3720,7 +3675,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Silver.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3741,7 +3696,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Silver.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3762,7 +3717,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Pink.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3783,7 +3738,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Pink.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3804,7 +3759,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Purple.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3825,7 +3780,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Purple.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3846,7 +3801,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Dark-Blue.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3867,7 +3822,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Dark-Blue\n\n${percentage_new}%" ; sleep 0.2
@@ -3888,7 +3843,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Orange.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3909,7 +3864,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Orange.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3930,7 +3885,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Yellow.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3949,7 +3904,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Yellow.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3970,7 +3925,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCreating: ${input_file_no_path_or_ext}-Neon-Green.png\n\n${percentage_new}%" ; sleep 0.2
@@ -3991,7 +3946,7 @@ for decal in "${input_dir}"/* ; do
   fi
 
   # Echo percentage to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text to zenity progress
   echo "# Task: Colorize and compress (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCompressing: ${input_file_no_path_or_ext}-Neon-Green.png\n\n${percentage_new}%" ; sleep 0.2
@@ -4025,7 +3980,7 @@ dir_output="$gif_dir"
 directory_name=$(basename "$dir_input")
 
 # Convert decal to gif
-convert -dispose previous -delay 100 -loop 0 "${dir_input}/*.png" "${gif_dir}/${directory_name}.gif" 2>/dev/null
+convert -dispose previous -delay 100 -loop 0 "${dir_input}/"*.png "${gif_dir}/${directory_name}.gif" 2>/dev/null
 }
 ##########################################################################################
 # Create function for generating gif images from "Colorized" directory (multiple images) #
@@ -4058,7 +4013,7 @@ percentage="0"
 current_decal_number="0"
 
 # Create loop
-for decal in ${colorized_dir}/* ; do
+for decal in "${colorized_dir}/"* ; do
 
   # Set value for current decal in loop
   ((current_decal_number++))
@@ -4075,13 +4030,13 @@ for decal in ${colorized_dir}/* ; do
   fi
 
   # Convert decal to gif
-  convert -dispose previous -delay 100 -loop 0 "${decal}/*.png" "${dir_output}/${decal_basename}.gif" 2>/dev/null
+  convert -dispose previous -delay 100 -loop 0 "${decal}/"*.png "${dir_output}/${decal_basename}.gif" 2>/dev/null
 
   # increment percentage number
   percentage=$(echo "${percentage}+${increment}" | bc)
 
   # Echo percentage number to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text for zenity progress
   echo "# Task: GIF (Multiple files)\n\nCurrent Decal: ${current_decal_number} of ${total_directories}\n\nCreating: ${decal_basename}.gif\n\n${percentage_new}%"; sleep 0.2
@@ -4107,7 +4062,7 @@ percentage="0"
 # Set current decal number in loop
 current_decal_number="0"
 
-for decal in ${colorized_dir}/*/*.png ; do
+for decal in "${colorized_dir}/"*/*.png ; do
 
   # Get decal basename
   decal_basename=$(basename "${decal}")
@@ -4127,7 +4082,7 @@ for decal in ${colorized_dir}/*/*.png ; do
   fi
 
    # Echo percentage number to zenity progress
-  echo "$percentage" ; sleep 0.2
+  echo "$percentage_new" ; sleep 0.2
 
   # Echo text for zenity progress
   echo "# Task: Create tablet images\n\nCurrent Decal: ${current_decal_number} of ${total_files}\n\nCreating: ${decal_basename}\n\n${percentage_new}%"; sleep 0.2
