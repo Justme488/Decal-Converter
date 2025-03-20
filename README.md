@@ -1,6 +1,6 @@
 ## Decal-Converter<br />
-### A utility to convert decal images to remove backgrounds, gif, fill all visible color with black, White background, colorize, and compress for Raven's Decals.<br />
-### This uses Zenity, Imagemagick, Potrace, and Pngquant (Tested on Linux Mint 22 cinnamon)<br /><br />
+### A utility to convert decal images that the background was removed with remove.bg, convert to gif, fill all visible color with black, White background, colorize, compress, and tablet images for Raven's Decals.<br />
+### This uses Zenity, Imagemagick, and Pngquant (Tested on Linux Mint 22.1 cinnamon)<br /><br />
 
 ### I made a script to build the .deb file from github<br />Copy and paste the following code into your terminal:<br />
 
@@ -10,7 +10,6 @@
 
 
 **Features:**<br />
-+ Single or multiple convert decal to transparent background<br />
 + Single or multiple colorize and compress decals images to White, Black, Blue, Teal, Red, green, Silver, Pink, Purple, Dark Blue, Orange, Yellow, and Neon-Green (You must use a transparent png file)<br />
 + fill all visible color in decal with black<br /> 
 + Saves png converted, colorized, filled and original decals to folder in home directory<br />
@@ -32,7 +31,6 @@
 - Neon-Green = ##39FF14<br />
 
 **Creates the following directories in `HOME` directory**<br />
-+ Decals/Resized-Transparent<br />
 + Decals/Black-Fill<br />
 + Decals/Colorized<br />
 + Decals/Original<br />
