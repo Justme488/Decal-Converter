@@ -1,0 +1,27 @@
+Decal Converter Help - Options, usage, and info:
+    
+• Single Decal - Normal
+
+  This will take a file that the background was removed with remove.bg ( with or without "-removebg-preview" in the filename ), and create a backup copy, make all visible color black, colorize, Create a .gif from the colorized images, Create tablet images for Raven's Decals, and Put black image on white background. 
+
+• Single Decal - ( Mirrored )
+  
+  This will do everything that "Single Decal - Normal" does, but it will mirror the decal.
+ 
+• Multiple Decals
+
+  This will also do everything that "Single Decal - Normal" does, but you can select a directory with multiple transparent background decals.
+ 
+• Clean Decal Directories
+  This option will remove files (Not the main directories) from the following directory:
+  ◦ /home/[ your_name ]/Decals/Original
+  ◦ /home/[ your_name ]/Decals/Black-Fill
+  ◦ /home/[ your_name ]/Decals/White-Background
+  ◦ /home/[ your_name ]/Decals/Colorized
+  ◦ /home/[ your_name ]/Decals/GIF
+  ◦ /home/[ your_name ]/Decals/Tablet
+ 
+• A temp directory will be created in your "Decals" directory named ".tmp" to perform the conversions.
+  This directory will be deleted when you exit Decal Converter.
+
+• remove.bg can be found here - https://www.remove.bg
