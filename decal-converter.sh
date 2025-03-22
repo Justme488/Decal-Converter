@@ -1677,7 +1677,7 @@ total_files=$(ls "$input_dir" 2> /dev/null | wc -l)
 tasks=$(echo "${total_files}*45" | bc)
 
 # Get number to increment progress bar by (45 actions / 99)
-increment=$(echo "scale=2; 99/${tasks}" | bc)
+increment=$(echo "scale=6; 99/${tasks}" | bc)
 
 # Set current decal number in loop
 current_decal_number="0"
